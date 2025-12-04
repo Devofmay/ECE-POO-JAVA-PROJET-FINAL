@@ -1,4 +1,4 @@
-package main.projetfinal.poo.basics;
+package main.java.fr.ece.javaprojetfinal.basics;
 
 public class UtilisateursProjet {
     private int id;

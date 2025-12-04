@@ -1,4 +1,4 @@
-package main.projetfinal.poo.basics;
+package main.java.fr.ece.javaprojetfinal.basics;
 
 import java.util.Date;
 
