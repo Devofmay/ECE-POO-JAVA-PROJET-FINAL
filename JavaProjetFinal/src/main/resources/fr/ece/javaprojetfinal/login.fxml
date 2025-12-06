@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="440.0" prefWidth="520.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.ece.javaprojetfinal.CommonController">
+   <children>
+      <AnchorPane prefHeight="90.0" prefWidth="520.0" style="-fx-background-color: #1C399C;">
+         <children>
+            <Label alignment="CENTER" layoutX="142.0" layoutY="8.0" prefHeight="67.0" prefWidth="265.0" text="Gestionnaire de taches " textFill="#efe8e8">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+         </children></AnchorPane>
+      <Label alignment="CENTER" layoutX="107.0" layoutY="90.0" prefHeight="58.0" prefWidth="365.0" text="Entrez vos identifiants pour vous connecter " textAlignment="JUSTIFY" textFill="#1f15b5">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+      <AnchorPane layoutX="47.0" layoutY="146.0" prefHeight="240.0" prefWidth="426.0" style="-fx-background-color: #1C399C;">
+         <children>
+            <TextField fx:id="username" layoutX="33.0" layoutY="65.0" />
+            <Label layoutX="33.0" layoutY="38.0" prefHeight="17.0" prefWidth="149.0" text="Nom d'utilisateur" textFill="#f2ecec" />
+            <Label layoutX="33.0" layoutY="119.0" prefHeight="17.0" prefWidth="149.0" text="Mot de passe" textFill="#fdf9f9" />
+            <TextField fx:id="pwd" layoutX="33.0" layoutY="145.0" />
+            <Button layoutX="200.0" layoutY="187.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Connexion" textFill="#2531b5" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
