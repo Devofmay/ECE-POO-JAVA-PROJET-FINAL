@@ -1,11 +1,11 @@
-module fr.ece.javaprojetfinal {
+module JavaProjetFinal {
     requires javafx.controls;
     requires javafx.fxml;
+    requires java.sql;
 
-    requires org.controlsfx.controls;
-    requires com.dlsc.formsfx;
-    requires org.kordamp.bootstrapfx.core;
 
     opens fr.ece.javaprojetfinal to javafx.fxml;
+
     exports fr.ece.javaprojetfinal;
+
 }
