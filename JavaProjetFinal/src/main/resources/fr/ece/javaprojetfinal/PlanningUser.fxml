@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="465.0" prefWidth="736.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.ece.javaprojetfinal.basics.HomeProjetAdmincontroller">
+    <children>
+        <AnchorPane fx:id="usernamespot" layoutX="5.0" prefHeight="432.0" prefWidth="166.0" style="-fx-background-color: #354161;">
+            <children>
+                <TextField fx:id="usernamespot" alignment="CENTER" layoutY="-3.0" prefHeight="56.0" prefWidth="173.0" promptText="Username" />
+                <VBox layoutX="23.0" layoutY="85.0" prefHeight="262.0" prefWidth="145.0" style="-fx-background-color: #354161;" AnchorPane.leftAnchor="23.0" AnchorPane.rightAnchor="23.0">
+                    <children>
+                        <Button fx:id="tachesbtn" mnemonicParsing="false" prefHeight="40.0" prefWidth="161.0" text="Taches ">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                        </Button>
+                        <Button fx:id="projetsbtn" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="161.0" text="Projets">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                            <VBox.margin>
+                                <Insets top="10.0" />
+                            </VBox.margin>
+                        </Button>
+                        <Button fx:id="calendrierbtn" layoutX="10.0" layoutY="90.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="161.0" text="Planning">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                            <VBox.margin>
+                                <Insets top="10.0" />
+                            </VBox.margin>
+                        </Button>
+                    </children>
+                </VBox>
+                <Button layoutX="12.0" layoutY="368.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="157.0" text="Deconnexion">
+                    <font>
+                        <Font size="14.0" />
+                    </font></Button>
+            </children></AnchorPane>
+        <AnchorPane layoutX="178.0" prefHeight="56.0" prefWidth="559.0" style="-fx-background-color: #7D90D1;">
+            <children>
+                <TextField layoutX="27.0" layoutY="10.0" prefHeight="27.0" prefWidth="283.0" style="-fx-background-color: #7D90D1;" text="Mon planning">
+                    <font>
+                        <Font size="18.0" />
+                    </font>
+                </TextField>
+            </children>
+        </AnchorPane>
+    </children>
+</AnchorPane>
