@@ -8,5 +8,7 @@ module JavaProjetFinal {
     opens fr.ece.javaprojetfinal to javafx.fxml;
 
     exports fr.ece.javaprojetfinal;
+    exports fr.ece.javaprojetfinal.basics;
+    opens fr.ece.javaprojetfinal.basics to javafx.fxml;
 
 }
