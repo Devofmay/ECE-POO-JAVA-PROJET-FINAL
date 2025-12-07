@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="408.0" prefWidth="624.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.ece.javaprojetfinal.basics.HomeProjetAdmincontroller">
+   <children>
+      <AnchorPane fx:id="usernamespot" layoutX="-20.0" prefHeight="408.0" prefWidth="183.0" style="-fx-background-color: #2043BD;">
+         <children>
+            <TextField alignment="CENTER" layoutX="19.0" layoutY="14.0" prefHeight="39.0" prefWidth="165.0" promptText="Username" />
+            <VBox layoutX="21.0" layoutY="86.0" prefHeight="224.0" prefWidth="159.0" AnchorPane.leftAnchor="21.0" AnchorPane.rightAnchor="7.0">
+               <children>
+                  <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="161.0" text="Projets">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+                  <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="161.0" text="Taches">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+                  <Button layoutX="10.0" layoutY="50.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="161.0" text="Utilisateurs">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+                  <Button layoutX="10.0" layoutY="90.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="161.0" text="Calendrier">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+               </children>
+            </VBox>
+            <Button layoutX="22.0" layoutY="314.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="157.0" text="Deconnexion" />
+         </children></AnchorPane>
+      <AnchorPane layoutX="163.0" layoutY="-12.0" prefHeight="66.0" prefWidth="468.0" style="-fx-background-color: #7D90D1;">
+         <children>
+            <TextField layoutX="25.0" layoutY="21.0" prefHeight="39.0" prefWidth="283.0" style="-fx-background-color: #7D90D1;" text="Mes projets">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </TextField>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
