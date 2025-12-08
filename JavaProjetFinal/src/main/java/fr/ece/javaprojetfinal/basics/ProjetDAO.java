@@ -6,7 +6,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import static fr.ece.javaprojetfinal.basics.DBconnect.getConnection;
 
@@ -132,5 +134,41 @@ public class ProjetDAO {
             }
         }
         return null;
+    }
+    public Map<Integer, String> findAllUsers() throws SQLException {
+        String sql = "SELECT ID, Name FROM utilisateur";
+        Map<Integer, String> map = new LinkedHashMap<>();
+        try (Connection conn = getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                map.put(rs.getInt("ID"), rs.getString("Name"));
+            }
+        }
+        return map;
+    }
+
+    // Update project in DB. Returns number of affected rows.
+    public int updateProjet(Projet projet) throws SQLException {
+        String sql = "UPDATE projet SET Nom = ?, Description = ?, Date_echeance = ?, Responsable = ?, Statut = ? WHERE ID = ?";
+        try (Connection conn = getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, projet.getNom());
+            ps.setString(2, projet.getDescription());
+            Date sqlDate = projet.getDateEcheance() != null ? new Date(projet.getDateEcheance().getTime()) : null;
+            if (sqlDate != null) {
+                ps.setDate(3, sqlDate);
+            } else {
+                ps.setNull(3, java.sql.Types.DATE);
+            }
+            if (projet.getResponsable() != null) {
+                ps.setInt(4, projet.getResponsable());
+            } else {
+                ps.setNull(4, java.sql.Types.INTEGER);
+            }
+            ps.setString(5, projet.getStatut());
+            ps.setInt(6, projet.getId());
+            return ps.executeUpdate();
+        }
     }
 }

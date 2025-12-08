@@ -8,12 +8,18 @@ import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -48,8 +54,15 @@ public class InsideProjetAdminController {
     @FXML
     private TableColumn<Tache, String> statusColumn;
 
+    // Button in the FXML
+    @FXML
+    private Button modifprojet;
+
     private final ObservableList<Tache> taskNames = FXCollections.observableArrayList();
     private final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+    // store the current project so modifier can receive it
+    private Projet currentProjet;
 
     @FXML
     private void initialize() {
@@ -72,11 +85,16 @@ public class InsideProjetAdminController {
         if (collaboratorsList != null) {
             collaboratorsList.getItems().clear();
         }
+
+        // wire button action (optional if declared in FXML)
+        if (modifprojet != null) {
+            modifprojet.setOnAction(e -> openModifierProjet());
+        }
     }
 
-    // Call from opener to populate UI (runs in same window because opener sets center)
     public void setProject(Projet projet) {
         if (projet == null) return;
+        this.currentProjet = projet;
 
         if (projectNameField != null) {
             projectNameField.setText(projet.getNom());
@@ -95,7 +113,6 @@ public class InsideProjetAdminController {
                 System.err.println("DB error loading project details: " + e.getMessage());
             }
 
-            // set owner name on each task (project responsable)
             if (responsableName == null) responsableName = "";
             for (Tache t : tasks) {
                 t.setOwnerName(responsableName);
@@ -109,5 +126,62 @@ public class InsideProjetAdminController {
                 usernameField.setText(responsableName);
             }
         });
+    }
+
+    // Open the modifier page in the same window (replace Scene)
+    private void openModifierProjet() {
+        if (currentProjet == null) return;
+        try {
+            // find the current stage and current scene to restore later
+            Stage stage = null;
+            Scene oldScene = null;
+            if (projectNameField != null && projectNameField.getScene() != null && projectNameField.getScene().getWindow() instanceof Stage) {
+                stage = (Stage) projectNameField.getScene().getWindow();
+                oldScene = projectNameField.getScene();
+            } else if (tasksTable != null && tasksTable.getScene() != null && tasksTable.getScene().getWindow() instanceof Stage) {
+                stage = (Stage) tasksTable.getScene().getWindow();
+                oldScene = tasksTable.getScene();
+            }
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fr/ece/javaprojetfinal/ModifierProjet.fxml"));
+            Parent modifierRoot = loader.load();
+
+            // pass references to the modifier controller so it can refresh this view
+            Object controllerObj = loader.getController();
+            if (controllerObj instanceof fr.ece.javaprojetfinal.ModifierProjetcontroller) {
+                fr.ece.javaprojetfinal.ModifierProjetcontroller controller = (fr.ece.javaprojetfinal.ModifierProjetcontroller) controllerObj;
+                controller.setProject(currentProjet);
+                controller.setPreviousScene(oldScene);
+                controller.setParentController(this); // allow callback to refresh
+            } else {
+                if (controllerObj != null) {
+                    try {
+                        controllerObj.getClass().getMethod("setProject", Projet.class).invoke(controllerObj, currentProjet);
+                        controllerObj.getClass().getMethod("setPreviousScene", Scene.class).invoke(controllerObj, oldScene);
+                        controllerObj.getClass().getMethod("setParentController", InsideProjetAdminController.class).invoke(controllerObj, this);
+                    } catch (NoSuchMethodException ignored) {
+                        // controller doesn't expose parent setter; fallback behavior remains
+                    } catch (Exception ex) {
+                        System.err.println("Failed to set modifier controller references: " + ex.getMessage());
+                    }
+                }
+            }
+
+            if (stage != null) {
+                Scene newScene = new Scene(modifierRoot);
+                if (oldScene != null) newScene.getStylesheets().addAll(oldScene.getStylesheets());
+                stage.setScene(newScene);
+                stage.setTitle("Modifier le projet - " + currentProjet.getNom());
+                stage.sizeToScene();
+            } else {
+                Stage s = new Stage();
+                s.setScene(new Scene(modifierRoot));
+                s.setTitle("Modifier le projet - " + currentProjet.getNom());
+                s.show();
+            }
+
+        } catch (IOException ex) {
+            System.err.println("Failed to load ModifierProjet.fxml: " + ex.getMessage());
+        }
     }
 }
