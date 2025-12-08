@@ -1,88 +1,172 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="465.0" prefWidth="736.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.ece.javaprojetfinal.basics.HomeProjetAdmincontroller">
-    <children>
-        <AnchorPane fx:id="usernamespot" layoutX="5.0" prefHeight="432.0" prefWidth="166.0" style="-fx-background-color: #354161;">
+<BorderPane prefHeight="560" prefWidth="900"
+            xmlns="http://javafx.com/javafx/17.0.12"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="fr.ece.javaprojetfinal.basics.HomeProjetAdmincontroller">
+
+    <!-- HEADER -->
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="12"
+              style="-fx-padding:12; -fx-background-color: linear-gradient(to right, #4b6cb7, #182848);">
             <children>
-                <TextField fx:id="usernamespot" alignment="CENTER" layoutY="-3.0" prefHeight="56.0" prefWidth="173.0" promptText="Username" />
-                <VBox layoutX="23.0" layoutY="85.0" prefHeight="262.0" prefWidth="145.0" style="-fx-background-color: #354161;" AnchorPane.leftAnchor="23.0" AnchorPane.rightAnchor="23.0">
+
+                <Label text="Project Manager" style="-fx-text-fill: white;">
+                    <font><Font size="20" /></font>
+                </Label>
+
+                <Region HBox.hgrow="ALWAYS" />
+
+                <Button fx:id="logoutbtn" text="Déconnexion"
+                        style="-fx-background-color: transparent; -fx-text-fill: white;
+                               -fx-border-color: rgba(255,255,255,0.2); -fx-border-radius:6; -fx-padding:6 12;">
+                    <tooltip><Tooltip text="Se déconnecter" /></tooltip>
+                </Button>
+
+            </children>
+        </HBox>
+    </top>
+
+    <!-- SIDEBAR -->
+    <left>
+        <VBox alignment="TOP_CENTER" spacing="18"
+              style="-fx-padding:18; -fx-background-color: linear-gradient(to bottom, #1f3c88, #254a9b);
+                     -fx-pref-width:220;">
+            <children>
+
+                <!-- Avatar -->
+                <StackPane alignment="CENTER" prefHeight="120">
                     <children>
-                        <Button fx:id="tachesbtn" mnemonicParsing="false" prefHeight="40.0" prefWidth="161.0" text="Taches ">
-                            <font>
-                                <Font size="14.0" />
-                            </font>
-                        </Button>
-                        <Button fx:id="projetsbtn" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="161.0" text="Projets">
-                            <font>
-                                <Font size="14.0" />
-                            </font>
-                            <VBox.margin>
-                                <Insets top="10.0" />
-                            </VBox.margin>
-                        </Button>
-                        <Button fx:id="calendrierbtn" layoutX="10.0" layoutY="90.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="161.0" text="Calendrier">
-                            <font>
-                                <Font size="14.0" />
-                            </font>
-                            <VBox.margin>
-                                <Insets top="10.0" />
-                            </VBox.margin>
-                        </Button>
-                        <Button fx:id="tachesbtn1" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="161.0" text="Taches ">
-                            <font>
-                                <Font size="14.0" />
-                            </font>
-                            <VBox.margin>
-                                <Insets top="10.0" />
-                            </VBox.margin>
-                        </Button>
+                        <Circle radius="40"
+                                style="-fx-fill: linear-gradient(#ffffff44, #ffffff11);
+                                       -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.35),8,0,0,2);" />
+                        <Label fx:id="usernameField" text="Utilisateur"
+                               style="-fx-text-fill: white; -fx-font-weight: bold;"/>
+                    </children>
+                </StackPane>
+
+                <!-- MENU -->
+                <VBox alignment="TOP_CENTER" spacing="8" style="-fx-padding:6;">
+                    <children>
+                        <Button fx:id="tachesbtn" text="Tâches" prefWidth="180"
+                                style="-fx-background-color: transparent; -fx-text-fill: white;
+                                       -fx-border-color: rgba(255,255,255,0.12); -fx-border-radius:8;
+                                       -fx-padding:8 10;" />
+
+                        <Button fx:id="projetsbtn" text="Projets" prefWidth="180"
+                                style="-fx-background-color: transparent; -fx-text-fill: white;
+                                       -fx-border-color: rgba(255,255,255,0.12); -fx-border-radius:8;
+                                       -fx-padding:8 10;" />
+
+                        <Button fx:id="calendrierbtn" text="Calendrier" prefWidth="180"
+                                style="-fx-background-color: transparent; -fx-text-fill: white;
+                                       -fx-border-color: rgba(255,255,255,0.12); -fx-border-radius:8;
+                                       -fx-padding:8 10;" />
+
+                        <Button fx:id="utilisateursbtn" text="Collaborateurs" prefWidth="180"
+                                style="-fx-background-color: transparent; -fx-text-fill: white;
+                                       -fx-border-color: rgba(255,255,255,0.12); -fx-border-radius:8;
+                                       -fx-padding:8 10;" />
                     </children>
                 </VBox>
-                <Button layoutX="12.0" layoutY="368.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="157.0" text="Deconnexion">
-                    <font>
-                        <Font size="14.0" />
-                    </font></Button>
-            </children></AnchorPane>
-        <AnchorPane layoutX="178.0" prefHeight="56.0" prefWidth="559.0" style="-fx-background-color: #7D90D1;">
-            <children>
-                <TextField layoutX="27.0" layoutY="10.0" prefHeight="27.0" prefWidth="283.0" style="-fx-background-color: #7D90D1;" text="Mes taches">
-                    <font>
-                        <Font size="18.0" />
-                    </font>
-                </TextField>
+
+                <Region VBox.vgrow="ALWAYS" />
+
+                <Button text="Paramètres" prefWidth="180"
+                        style="-fx-background-radius:8; -fx-background-color: rgba(255,255,255,0.06);
+                               -fx-text-fill: white; -fx-padding:8 10;" />
+
             </children>
-        </AnchorPane>
-        <Label layoutX="234.0" layoutY="75.0" prefHeight="17.0" prefWidth="283.0" text="Vos 4 prochaines taches ">
-            <font>
-                <Font size="18.0" />
-            </font>
-        </Label>
-        <AnchorPane layoutX="453.0" layoutY="118.0" prefHeight="103.0" prefWidth="157.0" style="-fx-background-color: #6181AD;">
+        </VBox>
+    </left>
+
+    <!-- MAIN CONTENT -->
+    <center>
+        <VBox spacing="24" style="-fx-padding:24; -fx-background-color:#F6F8FF;">
             <children>
-                <TextField fx:id="taskspot2" layoutY="52.0" prefHeight="37.0" prefWidth="157.0" promptText="Tache1" text="tache y" />
-                <TextField fx:id="projetnamespot2" layoutY="14.0" prefHeight="37.0" prefWidth="157.0" promptText="projet x" style="-fx-background-color: #354161;" />
+
+                <!-- TITLE -->
+                <HBox alignment="CENTER_LEFT">
+                    <children>
+                        <Label text="Vos prochaines tâches" style="-fx-text-fill:#1f2b59;">
+                            <font><Font size="22"/></font>
+                        </Label>
+                    </children>
+                </HBox>
+
+                <!-- GRID OF 4 TASKS -->
+                <GridPane hgap="20" vgap="20">
+                    <columnConstraints>
+                        <ColumnConstraints percentWidth="50"/>
+                        <ColumnConstraints percentWidth="50"/>
+                    </columnConstraints>
+
+                    <!-- TASK CARD 1 -->
+                    <VBox GridPane.columnIndex="0" GridPane.rowIndex="0"
+                          spacing="8"
+                          style="-fx-background-color:white; -fx-background-radius:12;
+                                 -fx-padding:14; -fx-effect:dropshadow(gaussian, rgba(0,0,0,0.12),12,0,0,2);">
+                        <children>
+                            <Label text="Projet :" style="-fx-text-fill:#1f2b59; -fx-font-weight:bold;"/>
+                            <Label fx:id="projetnamespot1" text="-" style="-fx-text-fill:#1f2b59;" />
+
+                            <Label text="Tâche :" style="-fx-text-fill:#1f2b59; -fx-font-weight:bold;"/>
+                            <Label fx:id="taskspot1" text="-" style="-fx-text-fill:#1f2b59;" />
+                        </children>
+                    </VBox>
+
+                    <!-- TASK CARD 2 -->
+                    <VBox GridPane.columnIndex="1" GridPane.rowIndex="0"
+                          spacing="8"
+                          style="-fx-background-color:white; -fx-background-radius:12;
+                                 -fx-padding:14; -fx-effect:dropshadow(gaussian, rgba(0,0,0,0.12),12,0,0,2);">
+                        <children>
+                            <Label text="Projet :" style="-fx-text-fill:#1f2b59; -fx-font-weight:bold;"/>
+                            <Label fx:id="projetnamespot2" text="-" style="-fx-text-fill:#1f2b59;" />
+
+                            <Label text="Tâche :" style="-fx-text-fill:#1f2b59; -fx-font-weight:bold;"/>
+                            <Label fx:id="taskspot2" text="-" style="-fx-text-fill:#1f2b59;" />
+                        </children>
+                    </VBox>
+
+                    <!-- TASK CARD 3 -->
+                    <VBox GridPane.columnIndex="0" GridPane.rowIndex="1"
+                          spacing="8"
+                          style="-fx-background-color:white; -fx-background-radius:12;
+                                 -fx-padding:14; -fx-effect:dropshadow(gaussian, rgba(0,0,0,0.12),12,0,0,2);">
+                        <children>
+                            <Label text="Projet :" style="-fx-text-fill:#1f2b59; -fx-font-weight:bold;"/>
+                            <Label fx:id="projetnamespot3" text="-" style="-fx-text-fill:#1f2b59;" />
+
+                            <Label text="Tâche :" style="-fx-text-fill:#1f2b59; -fx-font-weight:bold;"/>
+                            <Label fx:id="taskspot3" text="-" style="-fx-text-fill:#1f2b59;" />
+                        </children>
+                    </VBox>
+
+                    <!-- TASK CARD 4 -->
+                    <VBox GridPane.columnIndex="1" GridPane.rowIndex="1"
+                          spacing="8"
+                          style="-fx-background-color:white; -fx-background-radius:12;
+                                 -fx-padding:14; -fx-effect:dropshadow(gaussian, rgba(0,0,0,0.12),12,0,0,2);">
+                        <children>
+                            <Label text="Projet :" style="-fx-text-fill:#1f2b59; -fx-font-weight:bold;"/>
+                            <Label fx:id="projetnamespot4" text="-" style="-fx-text-fill:#1f2b59;" />
+
+                            <Label text="Tâche :" style="-fx-text-fill:#1f2b59; -fx-font-weight:bold;"/>
+                            <Label fx:id="taskspot4" text="-" style="-fx-text-fill:#1f2b59;" />
+                        </children>
+                    </VBox>
+
+                </GridPane>
+
             </children>
-        </AnchorPane>
-        <AnchorPane layoutX="234.0" layoutY="118.0" prefHeight="103.0" prefWidth="157.0" style="-fx-background-color: #6181AD;">
-            <children>
-                <TextField fx:id="taskspot1" layoutY="52.0" prefHeight="37.0" prefWidth="157.0" promptText="Tache1" text="tache y" />
-                <TextField fx:id="projetnamespot1" layoutY="14.0" prefHeight="37.0" prefWidth="157.0" promptText="projet x" style="-fx-background-color: #354161;" />
-            </children>
-        </AnchorPane>
-        <AnchorPane layoutX="234.0" layoutY="263.0" prefHeight="103.0" prefWidth="157.0" style="-fx-background-color: #6181AD;">
-            <children>
-                <TextField fx:id="taskspot3" layoutY="52.0" prefHeight="37.0" prefWidth="157.0" promptText="Tache1" text="tache y" />
-                <TextField fx:id="projetnamespot3" layoutY="14.0" prefHeight="37.0" prefWidth="157.0" promptText="projet x" style="-fx-background-color: #354161;" />
-            </children>
-        </AnchorPane>
-        <AnchorPane layoutX="458.0" layoutY="263.0" prefHeight="103.0" prefWidth="157.0" style="-fx-background-color: #6181AD;">
-            <children>
-                <TextField fx:id="taskspot4" layoutY="52.0" prefHeight="37.0" prefWidth="157.0" promptText="Tache1" text="tache y" />
-                <TextField fx:id="projetnamespot4" layoutY="14.0" prefHeight="37.0" prefWidth="157.0" promptText="projet x" style="-fx-background-color: #354161;" />
-            </children>
-        </AnchorPane>
-    </children>
-</AnchorPane>
+        </VBox>
+    </center>
+
+</BorderPane>
