@@ -8,6 +8,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static fr.ece.javaprojetfinal.basics.DBconnect.getConnection;
+
 public class ProjetDAO {
     private static final String SQL_BY_USERID =
             "SELECT p.ID, p.Nom, p.Description, p.Date_creation, p.Date_echeance, p.Responsable, p.Statut " +
@@ -20,7 +22,7 @@ public class ProjetDAO {
                     "FROM projet WHERE Responsable = ?";
 
     public List<Projet> findByUserId(int userId) throws SQLException {
-        try (Connection conn = DBconnect.getConnection();
+        try (Connection conn = getConnection();
              PreparedStatement ps = conn.prepareStatement(SQL_BY_USERID)) {
             ps.setInt(1, userId);
             try (ResultSet rs = ps.executeQuery()) {
@@ -30,7 +32,7 @@ public class ProjetDAO {
     }
 
     public List<Projet> findByResponsableId(int responsableId) throws SQLException {
-        try (Connection conn = DBconnect.getConnection();
+        try (Connection conn = getConnection();
              PreparedStatement ps = conn.prepareStatement(SQL_BY_RESPONSABLE)) {
             ps.setInt(1, responsableId);
             try (ResultSet rs = ps.executeQuery()) {
@@ -55,10 +57,11 @@ public class ProjetDAO {
         }
         return projets;
     }
+
     public void deleteById(int id) throws SQLException {
         // Adjust table/column names if your DB uses different names
         String sql = "DELETE FROM projets WHERE id = ?";
-        try (Connection conn = DBconnect.getConnection();
+        try (Connection conn = getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, id);
             int affected = ps.executeUpdate();
@@ -68,4 +71,66 @@ public class ProjetDAO {
         }
     }
 
+    // existing simple helper (kept if present)
+    public List<String> findCollaboratorsNamesByProjetId(int projetId) throws SQLException {
+        List<String> names = new ArrayList<>();
+        String sql = "SELECT u.Name AS display_name " +
+                "FROM utilisateur u " +
+                "JOIN utilisateurs_projet up ON u.ID = up.User_id " +
+                "WHERE up.Projet_id = ?";
+        try (Connection conn = getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, projetId);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    String display = rs.getString("display_name");
+                    if (display != null) names.add(display);
+                }
+            }
+        }
+        return names;
+    }
+
+    // Return list of Tache objects for a project
+    public List<Tache> findTasksByProjetId(int projetId) throws SQLException {
+        List<Tache> tasks = new ArrayList<>();
+        String sql = "SELECT ID, Nom, Description, Date_creation, Date_echeances, Id_projet, Statut, Priorite " +
+                "FROM taches WHERE Id_projet = ?";
+        try (Connection conn = getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, projetId);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    int id = rs.getInt("ID");
+                    String nom = rs.getString("Nom");
+                    String desc = rs.getString("Description");
+                    Date dCreate = rs.getDate("Date_creation");
+                    Date dEch = rs.getDate("Date_echeances");
+                    int idProjet = rs.getInt("Id_projet");
+                    String statut = rs.getString("Statut");
+                    String priorite = rs.getString("Priorite");
+                    java.util.Date dateCreation = dCreate != null ? new java.util.Date(dCreate.getTime()) : null;
+                    java.util.Date dateEcheance = dEch != null ? new java.util.Date(dEch.getTime()) : null;
+                    Tache t = new Tache(id, nom, desc, dateCreation, dateEcheance, idProjet, statut, priorite);
+                    tasks.add(t);
+                }
+            }
+        }
+        return tasks;
+    }
+
+    // Return project responsable name (joins projet -> utilisateur)
+    public String getResponsableNameByProjetId(int projetId) throws SQLException {
+        String sql = "SELECT u.Name FROM utilisateur u JOIN projet p ON p.Responsable = u.ID WHERE p.ID = ?";
+        try (Connection conn = getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, projetId);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getString(1);
+                }
+            }
+        }
+        return null;
+    }
 }

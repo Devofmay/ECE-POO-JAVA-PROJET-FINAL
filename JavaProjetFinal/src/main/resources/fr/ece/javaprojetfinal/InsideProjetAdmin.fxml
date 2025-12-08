@@ -5,11 +5,11 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane prefHeight="514.0" prefWidth="914.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.ece.javaprojetfinal.basics.InsideProjetAdminController">
+<BorderPane prefHeight="514.0" prefWidth="914.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.ece.javaprojetfinal.InsideProjetAdminController">
 
     <!-- Header -->
     <top>
-        <HBox alignment="CENTER_LEFT" spacing="12" style="-fx-padding:12; -fx-background-radius:0 0 12 12;                      -fx-background-color: linear-gradient(to right, #4b6cb7, #182848);">
+        <HBox alignment="CENTER_LEFT" spacing="12" style="-fx-padding:12; -fx-background-color: linear-gradient(to right, #4b6cb7, #182848);">
             <children>
                 <Label style="-fx-text-fill: white;" text="Project Manager">
                     <font><Font size="20" /></font>

@@ -7,14 +7,24 @@ import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.layout.BorderPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
 public class HomeProjetAdmincontroller {
+    @FXML
+    private BorderPane rootPane; // add reference to top-level BorderPane
+
     @FXML
     private Label usernameSpot;
 
@@ -32,11 +42,6 @@ public class HomeProjetAdmincontroller {
 
     private final ObservableList<Projet> projects = FXCollections.observableArrayList();
 
-    /**
-     * Call this after loading FXML.
-     * If isAdmin==true the controller will load projects where the user is the Responsable.
-     * If isAdmin==false it will load projects from utilisateurs_projet (membership).
-     */
     public void setUser(int userId, String username, boolean isAdmin) {
         if (usernameSpot != null) {
             usernameSpot.setText(username);
@@ -49,10 +54,8 @@ public class HomeProjetAdmincontroller {
         try {
             List<Projet> projets;
             if (isAdmin) {
-                System.out.println("[HomeProjetAdmincontroller] loading projects where user is Responsable -> " + userId);
                 projets = dao.findByResponsableId(userId);
             } else {
-                System.out.println("[HomeProjetAdmincontroller] loading projects by membership -> " + userId);
                 projets = dao.findByUserId(userId);
             }
             final List<Projet> finalProjets = projets;
@@ -69,7 +72,6 @@ public class HomeProjetAdmincontroller {
 
     @FXML
     private void initialize() {
-        // safeguard if FXML still had ListView: ignore it and configure table if present
         if (projectsTable != null) {
             projectsTable.setPlaceholder(new Label("Aucun projet pour cet utilisateur"));
 
@@ -83,28 +85,56 @@ public class HomeProjetAdmincontroller {
         }
     }
 
-    // called by ActionsCell
+
     public void openProject(Projet projet) {
-        // TODO: open project details view
-        System.out.println("Open project: " + projet.getNom());
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fr/ece/javaprojetfinal/InsideProjetAdmin.fxml"));
+            Parent insideRoot = loader.load();
+
+            InsideProjetAdminController insideController = loader.getController();
+            insideController.setProject(projet);
+
+            // try to get the current Stage from a UI node (projectsTable)
+            Stage currentStage = null;
+            if (projectsTable != null && projectsTable.getScene() != null && projectsTable.getScene().getWindow() instanceof Stage) {
+                currentStage = (Stage) projectsTable.getScene().getWindow();
+            }
+
+            if (currentStage != null) {
+                Scene oldScene = projectsTable.getScene();
+                Scene newScene = new Scene(insideRoot);
+                // preserve stylesheets from the old scene if present
+                if (oldScene != null) {
+                    newScene.getStylesheets().addAll(oldScene.getStylesheets());
+                }
+                currentStage.setScene(newScene);
+                currentStage.setTitle("Projet - " + projet.getNom());
+                currentStage.sizeToScene();
+            } else if (rootPane != null) {
+                // fallback: replace center of current BorderPane
+                rootPane.setCenter(insideRoot);
+            } else {
+                // last-resort: open a new window (shouldn't happen for usual usage)
+                Stage stage = new Stage();
+                stage.setScene(new Scene(insideRoot));
+                stage.setTitle("Projet - " + projet.getNom());
+                stage.show();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    // called by ActionsCell
+
     public void deleteProject(Projet projet) {
         ProjetDAO dao = new ProjetDAO();
         try {
-            // adjust method name if your DAO uses a different API (e.g. delete(projet) or remove(id))
             dao.deleteById(projet.getId());
-            Platform.runLater(() -> {
-                projects.remove(projet);
-            });
-            System.out.println("Deleted project: " + projet.getNom());
+            Platform.runLater(() -> projects.remove(projet));
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (NoSuchMethodError ex) {
-            // fallback if your DAO doesn't have deleteById: remove locally and log
             projects.remove(projet);
-            System.out.println("Removed locally (DAO delete method not found) : " + projet.getNom());
         }
     }
 }

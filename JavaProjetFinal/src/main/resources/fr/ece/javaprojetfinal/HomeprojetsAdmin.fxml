@@ -16,7 +16,7 @@
 
     <!-- Header -->
     <top>
-        <HBox spacing="12" alignment="CENTER_LEFT" style="-fx-padding:12; -fx-background-radius:0 0 12 12; -fx-background-color: linear-gradient(to right, #4b6cb7, #182848);">
+        <HBox spacing="12" alignment="CENTER_LEFT" style="-fx-padding:12;  -fx-background-color: linear-gradient(to right, #4b6cb7, #182848);">
             <children>
                 <Label text="Project Manager" style="-fx-text-fill: white;">
                     <font>
