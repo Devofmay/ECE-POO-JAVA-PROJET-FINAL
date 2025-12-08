@@ -4,59 +4,127 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="465.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.ece.javaprojetfinal.basics.UtilisateursProjetController">
+<AnchorPane prefHeight="465.0" prefWidth="900.0"
+            xmlns="http://javafx.com/javafx/17.0.12"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="fr.ece.javaprojetfinal.InsideUsercontroller3">
 
-    <children>
+    <!-- MENU GAUCHE (uniformisé au style global) -->
+    <AnchorPane fx:id="leftMenu"
+                prefHeight="465.0"
+                prefWidth="170.0"
+                style="-fx-background-color: linear-gradient(to bottom, #1f3c88, #254a9b);">
 
-        <!-- MENU GAUCHE -->
-        <AnchorPane fx:id="leftMenu" prefHeight="465.0" prefWidth="170.0" style="-fx-background-color: #354161;">
-            <children>
+        <!-- Username -->
+        <TextField fx:id="usernameField"
+                   alignment="CENTER"
+                   editable="false"
+                   prefHeight="60.0"
+                   prefWidth="170.0"
+                   promptText="Username"
+                   style="-fx-background-color: #ffffff;" />
 
-                <TextField fx:id="usernameField" alignment="CENTER" editable="false" prefHeight="60.0" prefWidth="170.0" promptText="Username" style="-fx-background-color: #ffffff;" />
+        <!-- Boutons menu -->
+        <VBox layoutY="80.0" prefWidth="170.0" spacing="12.0">
 
-                <VBox layoutY="80.0" prefWidth="170.0" spacing="12.0">
-                    <children>
-                        <Button fx:id="tachesbtn" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: #4A5A7D; -fx-text-fill: white;" text="Tâches" />
-                        <Button fx:id="projetsbtn" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: #4A5A7D; -fx-text-fill: white;" text="Projets" />
-                        <Button fx:id="utilisateursbtn" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: #6A7FA1; -fx-text-fill: white;" text="Collaborateurs" />
-                        <Button fx:id="calendrierbtn" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: #4A5A7D; -fx-text-fill: white;" text="Planning" />
-                    </children>
-                </VBox>
+            <Button fx:id="tachesbtn"
+                    prefHeight="40.0" prefWidth="150.0"
+                    style="-fx-background-color: rgba(255,255,255,0.12); -fx-text-fill: white;"
+                    text="Tâches"/>
 
-                <Button fx:id="logoutbtn" layoutY="410.0" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: #C74444; -fx-text-fill: white;" text="Déconnexion" />
-            </children>
-        </AnchorPane>
+            <Button fx:id="projetsbtn"
+                    prefHeight="40.0" prefWidth="150.0"
+                    style="-fx-background-color: rgba(255,255,255,0.12); -fx-text-fill: white;"
+                    text="Projets"/>
+
+            <Button fx:id="utilisateursbtn"
+                    prefHeight="40.0" prefWidth="150.0"
+                    style="-fx-background-color: rgba(255,255,255,0.20); -fx-text-fill: white;"
+                    text="Collaborateurs"/>
+
+            <Button fx:id="calendrierbtn"
+                    prefHeight="40.0" prefWidth="150.0"
+                    style="-fx-background-color: rgba(255,255,255,0.12); -fx-text-fill: white;"
+                    text="Planning"/>
+
+        </VBox>
+
+        <!-- Déconnexion -->
+        <Button fx:id="logoutbtn"
+                layoutY="410.0"
+                prefHeight="40.0" prefWidth="150.0"
+                style="-fx-background-color: #C74444; -fx-text-fill: white;"
+                text="Déconnexion"/>
+    </AnchorPane>
 
 
-        <!-- BARRE DE TITRE -->
-        <AnchorPane layoutX="170.0" prefHeight="60.0" prefWidth="730.0" style="-fx-background-color: #7D90D1;">
-            <children>
-                <TextField fx:id="projectNameField" editable="false" layoutX="20.0" layoutY="13.0" prefHeight="35.0" prefWidth="350.0" promptText="Nom du projet" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-border-color: transparent;">
-                    <font>
-                        <Font name="System Bold" size="20.0" />
-                    </font>
-                </TextField>
-                <Button fx:id="retourBtn" layoutX="650.0" layoutY="10.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="60.0" style="-fx-background-color: #5A6FA8; -fx-text-fill: white;" text="Retour" />
-                <Button fx:id="ajouterUtilisateurBtn" layoutX="430.0" layoutY="8.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="200.0" style="-fx-background-color: #4A9D5F; -fx-text-fill: white; -fx-font-size: 13px; -fx-font-weight: bold;" text="Ajouter un collaborateur" />
-            </children>
-        </AnchorPane>
+    <!-- BARRE DE TITRE -->
+    <AnchorPane layoutX="170.0"
+                prefHeight="60.0" prefWidth="730.0"
+                style="-fx-background-color: #7D90D1;">
+
+        <TextField fx:id="projectNameField"
+                   editable="false"
+                   layoutX="20.0"
+                   layoutY="13.0"
+                   prefHeight="35.0" prefWidth="350.0"
+                   promptText="Nom du projet"
+                   style="-fx-background-color: transparent;
+                          -fx-text-fill: white;
+                          -fx-border-color: transparent;">
+            <font>
+                <Font name="System Bold" size="20.0"/>
+            </font>
+        </TextField>
+
+        <Button fx:id="ajouterUtilisateurBtn"
+                layoutX="430.0"
+                layoutY="8.0"
+                prefHeight="43.0" prefWidth="200.0"
+                style="-fx-background-color: #4A9D5F;
+                       -fx-text-fill: white;
+                       -fx-font-size: 13px;
+                       -fx-font-weight: bold;"
+                text="Ajouter un collaborateur"/>
+
+        <Button fx:id="retourBtn"
+                layoutX="650.0"
+                layoutY="10.0"
+                prefHeight="40.0" prefWidth="60.0"
+                style="-fx-background-color: #5A6FA8;
+                       -fx-text-fill: white;"
+                text="Retour"/>
+
+    </AnchorPane>
 
 
-        <!-- TABLE DES UTILISATEURS -->
-        <TableView fx:id="utilisateursTable" layoutX="180.0" layoutY="80.0" prefHeight="360.0" prefWidth="700.0">
+    <!-- TABLEAU DES COLLABORATEURS -->
+    <TableView fx:id="utilisateursTable"
+               layoutX="180.0"
+               layoutY="80.0"
+               prefHeight="360.0"
+               prefWidth="700.0">
 
-            <columns>
+        <columns>
 
-                <TableColumn fx:id="nomColumn" prefWidth="200.0" text="Nom" />
+            <TableColumn fx:id="nomColumn"
+                         prefWidth="200.0"
+                         text="Nom"/>
 
-                <TableColumn fx:id="roleColumn" prefWidth="150.0" text="Rôle" />
+            <TableColumn fx:id="roleColumn"
+                         prefWidth="150.0"
+                         text="Rôle"/>
 
-                <TableColumn fx:id="emailColumn" prefWidth="200.0" text="Email/Adresse" />
+            <TableColumn fx:id="emailColumn"
+                         prefWidth="200.0"
+                         text="Adresse"/>
 
-                <TableColumn fx:id="retirerColumn" prefWidth="150.0" sortable="false" text="Retirer" />
+            <TableColumn fx:id="retirerColumn"
+                         prefWidth="150.0"
+                         sortable="false"
+                         text="Accéder"/>
 
-            </columns>
-        </TableView>
+        </columns>
+    </TableView>
 
-    </children>
 </AnchorPane>
