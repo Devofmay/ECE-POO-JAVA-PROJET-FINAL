@@ -55,4 +55,17 @@ public class ProjetDAO {
         }
         return projets;
     }
+    public void deleteById(int id) throws SQLException {
+        // Adjust table/column names if your DB uses different names
+        String sql = "DELETE FROM projets WHERE id = ?";
+        try (Connection conn = DBconnect.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, id);
+            int affected = ps.executeUpdate();
+            if (affected == 0) {
+                throw new SQLException("No project deleted, id not found: " + id);
+            }
+        }
+    }
+
 }

@@ -3,7 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="465.0" prefWidth="736.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.ece.javaprojetfinal.basics.HomeProjetAdmincontroller">
+<AnchorPane prefHeight="465.0" prefWidth="736.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.ece.javaprojetfinal.HomeProjetAdmincontroller">
     <children>
         <AnchorPane fx:id="usernamespot" layoutX="5.0" prefHeight="432.0" prefWidth="166.0" style="-fx-background-color: #354161;">
             <children>

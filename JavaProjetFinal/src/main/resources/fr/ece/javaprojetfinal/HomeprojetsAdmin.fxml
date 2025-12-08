@@ -81,9 +81,14 @@
                 </HBox>
 
                 <StackPane style="-fx-background-color: transparent; -fx-padding:6;">
-                    <ListView fx:id="projectsList" prefHeight="420" style="-fx-background-color: transparent; -fx-border-color: transparent; -fx-cell-size:72;">
-                        <!-- Placeholder set in controller -->
-                    </ListView>
+                    <TableView fx:id="projectsTable" prefHeight="420" style="-fx-background-color: transparent; -fx-border-color: transparent;">
+                        <columns>
+                            <TableColumn fx:id="nameCol" text="Nom" prefWidth="300"/>
+                            <TableColumn fx:id="descCol" text="Description" prefWidth="380"/>
+                            <TableColumn fx:id="actionsCol" text="Actions" prefWidth="160"/>
+                        </columns>
+                    </TableView>
+
                 </StackPane>
             </children>
         </VBox>
