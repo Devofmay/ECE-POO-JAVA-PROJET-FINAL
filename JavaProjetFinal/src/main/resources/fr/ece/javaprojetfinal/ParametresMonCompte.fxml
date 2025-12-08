@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane prefHeight="560" prefWidth="900" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.ece.javaprojetfinal.ModifierProjetcontroller">
+
+    <!-- HEADER -->
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="12" style="-fx-padding:12; -fx-background-color: linear-gradient(to right, #4b6cb7, #182848);">
+
+            <Label style="-fx-text-fill: white;">
+                <font><Font size="20" /></font>
+                Project Manager
+            </Label>
+
+            <Region HBox.hgrow="ALWAYS" />
+
+            <Button fx:id="logoutbtn" style="-fx-background-color: transparent;                            -fx-text-fill: white;                            -fx-border-color: rgba(255,255,255,0.2);                            -fx-border-radius:6; -fx-padding:6 12;" text="Déconnexion">
+                <tooltip><Tooltip text="Se déconnecter" /></tooltip>
+            </Button>
+
+        </HBox>
+    </top>
+
+    <!-- SIDEBAR -->
+    <left>
+        <VBox alignment="TOP_CENTER" spacing="18" style="-fx-padding:18; -fx-background-color: linear-gradient(to bottom, #1f3c88, #254a9b); -fx-pref-width:220;">
+
+            <!-- Avatar -->
+            <StackPane alignment="CENTER" prefHeight="120">
+                <Circle radius="40" style="-fx-fill: linear-gradient(#ffffff44, #ffffff11);                                -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.35),8,0,0,2);" />
+                <Label fx:id="usernameField" style="-fx-text-fill: white; -fx-font-weight: bold;" text="Utilisateur" />
+            </StackPane>
+
+            <!-- Menu -->
+            <VBox alignment="TOP_CENTER" spacing="8" style="-fx-padding:6;">
+                <Button fx:id="projetsbtn" prefWidth="180" style="-fx-background-color: transparent; -fx-text-fill: white;                                -fx-border-color: rgba(255,255,255,0.12);                                -fx-border-radius:8; -fx-padding:8 10;" text="Projets" />
+
+                <Button fx:id="tachesbtn" prefWidth="180" style="-fx-background-color: transparent; -fx-text-fill: white;                                -fx-border-color: rgba(255,255,255,0.12);                                -fx-border-radius:8; -fx-padding:8 10;" text="Tâches" />
+
+                <Button fx:id="calendrierbtn" prefWidth="180" style="-fx-background-color: transparent; -fx-text-fill: white;                                -fx-border-color: rgba(255,255,255,0.12);                                -fx-border-radius:8; -fx-padding:8 10;" text="Calendrier" />
+            </VBox>
+
+            <Region VBox.vgrow="ALWAYS" />
+
+            <Button prefWidth="180" style="-fx-background-radius:8;                            -fx-background-color: rgba(255,255,255,0.06);                            -fx-text-fill: white; -fx-padding:8 10;" text="Paramètres" />
+        </VBox>
+    </left>
+
+    <!-- MAIN CONTENT -->
+    <center>
+        <VBox prefHeight="580.0" prefWidth="680.0" spacing="18" style="-fx-padding:20; -fx-background-color:#F6F8FF;">
+
+            <!-- Title -->
+            <HBox alignment="CENTER_LEFT" spacing="12">
+                <Label style="-fx-text-fill:#1f2b59;" text="Parametres ">
+                    <font><Font size="20" /></font>
+                </Label>
+
+                <Region HBox.hgrow="ALWAYS" />
+
+                <Button fx:id="retourBtn" style="-fx-background-color:#5A6FA8; -fx-text-fill:white;                                -fx-background-radius:8; -fx-padding:6 16;" text="Retour" />
+            </HBox>
+
+            <!-- FORM CARD -->
+            <VBox maxWidth="650" prefWidth="640" spacing="18" style="-fx-background-color:white; -fx-padding:18;                          -fx-background-radius:12;                          -fx-effect:dropshadow(gaussian, rgba(0,0,0,0.12),12,0,0,2);">
+
+                <!-- NOM -->
+                <VBox spacing="6">
+                    <Label style="-fx-text-fill:#1f2b59; -fx-font-weight:bold;" text="Nom " />
+                    <TextField fx:id="nomField" editable="false" prefHeight="33" style="-fx-background-color:#e6e6e6;                                       -fx-background-radius:8; -fx-padding:8;" />
+                </VBox>
+
+                <!-- ADRESSE -->
+                <VBox spacing="6">
+                    <Label style="-fx-text-fill:#1f2b59; -fx-font-weight:bold;" text="Adresse " />
+                    <TextField fx:id="adresseField" editable="false" prefHeight="33" style="-fx-background-color:#e6e6e6;                                       -fx-background-radius:8; -fx-padding:8;" />
+                </VBox>
+
+                <!-- PASSWORD -->
+                <VBox spacing="6">
+                    <Label style="-fx-text-fill:#1f2b59; -fx-font-weight:bold;" text="Mot de passe " />
+                    <TextField fx:id="passwordField" editable="false" prefHeight="33" style="-fx-background-color:#e6e6e6;                                       -fx-background-radius:8; -fx-padding:8;" />
+                </VBox>
+
+                <!-- ROLE -->
+                <VBox spacing="6">
+                    <VBox spacing="6">
+                        <children>
+                            <Label style="-fx-text-fill:#1f2b59; -fx-font-weight:bold;" text="Confirmer le mot de passe " />
+                            <TextField fx:id="passwordField1" editable="false" prefHeight="33" style="-fx-background-color:#e6e6e6;                                       -fx-background-radius:8; -fx-padding:8;" />
+                        </children>
+                    </VBox>
+                </VBox>
+
+                <!-- BUTTONS -->
+                <HBox alignment="CENTER_RIGHT" spacing="12">
+                    <Button fx:id="annulerBtn" style="-fx-background-color:#888; -fx-text-fill:white;                                    -fx-background-radius:8; -fx-padding:8 14;" text="Annuler" />
+
+                    <Button fx:id="enregistrerBtn" style="-fx-background-color:#4A9D5F; -fx-text-fill:white;                                    -fx-background-radius:8; -fx-padding:8 18;                                    -fx-font-weight:bold;" text="Enregistrer" />
+                </HBox>
+
+            </VBox>
+        </VBox>
+    </center>
+
+</BorderPane>
