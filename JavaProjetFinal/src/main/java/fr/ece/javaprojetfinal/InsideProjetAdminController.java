@@ -22,6 +22,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -69,7 +70,7 @@ public class InsideProjetAdminController {
         if (tasksTable != null) {
             taskNameColumn.setCellValueFactory(cell -> new ReadOnlyObjectWrapper<>(cell.getValue().getNom()));
             creationDateColumn.setCellValueFactory(cell -> {
-                java.util.Date d = cell.getValue().getDateCreation();
+                LocalDate d = cell.getValue().getDateCreation();
                 return new ReadOnlyObjectWrapper<>(d != null ? dateFormat.format(d) : "");
             });
             dueDateColumn.setCellValueFactory(cell -> {

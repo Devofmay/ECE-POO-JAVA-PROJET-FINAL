@@ -1,3 +1,4 @@
+
 package fr.ece.javaprojetfinal;
 
 import javafx.fxml.FXML;
@@ -45,11 +46,11 @@ public class CommonController {
                     int storedRole = rs.getInt("Role");
                     if (storedPassword != null && storedPassword.equals(password)) {
                         errorMsg.setText("Login successful");
+                        int userid = rs.getInt("ID");
                         if (storedRole == 1) {
                             FXMLLoader loader = new FXMLLoader(getClass().getResource("HomeprojetsAdmin.fxml"));
                             Parent root = loader.load();
                             HomeProjetAdmincontroller adminController = loader.getController();
-                            int userid = rs.getInt("ID");
                             adminController.setUser(userid, username, true);
 
                             Scene scene = new Scene(root);
@@ -58,7 +59,25 @@ public class CommonController {
                             stage.setScene(scene);
                             stage.show();
                         } else if (storedRole == 0) {
-                            //User
+                            // Normal user: open HomeUsertaches.fxml (correct name & path)
+                            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fr/ece/javaprojetfinal/HomeUsertaches.fxml"));
+                            Parent root;
+                            try {
+                                root = loader.load();
+                            } catch (IOException ex) {
+                                errorMsg.setText("Impossible d'ouvrir la vue utilisateur");
+                                ex.printStackTrace();
+                                return;
+                            }
+
+                            HomeUserTacheController userController = loader.getController();
+                            userController.setUser(userid, username);
+
+                            Scene scene = new Scene(root);
+                            Stage stage = (Stage) usernameField.getScene().getWindow();
+                            stage.setTitle("Tâches de " + username);
+                            stage.setScene(scene);
+                            stage.show();
                         }
                     } else {
                         errorMsg.setText("Mot de passe incorrect");

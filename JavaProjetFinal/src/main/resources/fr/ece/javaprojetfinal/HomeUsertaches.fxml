@@ -9,7 +9,7 @@
 <BorderPane prefHeight="560" prefWidth="900"
             xmlns="http://javafx.com/javafx/17.0.12"
             xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="fr.ece.javaprojetfinal.basics.HomeProjetAdmincontroller">
+            fx:controller="fr.ece.javaprojetfinal.HomeUserTacheController">
 
     <!-- HEADER -->
     <top>
@@ -46,7 +46,7 @@
                         <Circle radius="40"
                                 style="-fx-fill: linear-gradient(#ffffff44, #ffffff11);
                                        -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.35),8,0,0,2);" />
-                        <Label fx:id="usernameField" text="Utilisateur"
+                        <Label fx:id="usernameSpot" text="Utilisateur"
                                style="-fx-text-fill: white; -fx-font-weight: bold;"/>
                     </children>
                 </StackPane>
@@ -68,11 +68,6 @@
                                 style="-fx-background-color: transparent; -fx-text-fill: white;
                                        -fx-border-color: rgba(255,255,255,0.12); -fx-border-radius:8;
                                        -fx-padding:8 10;" />
-
-                        <Button fx:id="utilisateursbtn" text="Collaborateurs" prefWidth="180"
-                                style="-fx-background-color: transparent; -fx-text-fill: white;
-                                       -fx-border-color: rgba(255,255,255,0.12); -fx-border-radius:8;
-                                       -fx-padding:8 10;" />
                     </children>
                 </VBox>
 
@@ -88,7 +83,7 @@
 
     <!-- MAIN CONTENT -->
     <center>
-        <VBox spacing="24" style="-fx-padding:24; -fx-background-color:#F6F8FF;">
+        <VBox spacing="16" style="-fx-padding:24; -fx-background-color:#F6F8FF;">
             <children>
 
                 <!-- TITLE -->
@@ -100,7 +95,8 @@
                     </children>
                 </HBox>
 
-                <!-- GRID OF 4 TASKS -->
+                <!-- Removed the TableView - using card grid only -->
+
                 <GridPane hgap="20" vgap="20">
                     <columnConstraints>
                         <ColumnConstraints percentWidth="50"/>
@@ -118,6 +114,9 @@
 
                             <Label text="Tâche :" style="-fx-text-fill:#1f2b59; -fx-font-weight:bold;"/>
                             <Label fx:id="taskspot1" text="-" style="-fx-text-fill:#1f2b59;" />
+
+                            <Label text="Date d'échéance :" style="-fx-text-fill:#1f2b59; -fx-font-weight:bold;"/>
+                            <Label fx:id="datespot1" text="-" style="-fx-text-fill:#1f2b59;" />
                         </children>
                     </VBox>
 
@@ -132,6 +131,9 @@
 
                             <Label text="Tâche :" style="-fx-text-fill:#1f2b59; -fx-font-weight:bold;"/>
                             <Label fx:id="taskspot2" text="-" style="-fx-text-fill:#1f2b59;" />
+
+                            <Label text="Date d'échéance :" style="-fx-text-fill:#1f2b59; -fx-font-weight:bold;"/>
+                            <Label fx:id="datespot2" text="-" style="-fx-text-fill:#1f2b59;" />
                         </children>
                     </VBox>
 
@@ -146,6 +148,9 @@
 
                             <Label text="Tâche :" style="-fx-text-fill:#1f2b59; -fx-font-weight:bold;"/>
                             <Label fx:id="taskspot3" text="-" style="-fx-text-fill:#1f2b59;" />
+
+                            <Label text="Date d'échéance :" style="-fx-text-fill:#1f2b59; -fx-font-weight:bold;"/>
+                            <Label fx:id="datespot3" text="-" style="-fx-text-fill:#1f2b59;" />
                         </children>
                     </VBox>
 
@@ -160,6 +165,9 @@
 
                             <Label text="Tâche :" style="-fx-text-fill:#1f2b59; -fx-font-weight:bold;"/>
                             <Label fx:id="taskspot4" text="-" style="-fx-text-fill:#1f2b59;" />
+
+                            <Label text="Date d'échéance :" style="-fx-text-fill:#1f2b59; -fx-font-weight:bold;"/>
+                            <Label fx:id="datespot4" text="-" style="-fx-text-fill:#1f2b59;" />
                         </children>
                     </VBox>
 
