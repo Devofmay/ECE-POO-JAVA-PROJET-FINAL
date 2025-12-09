@@ -46,16 +46,23 @@
 
                 <VBox spacing="8" alignment="TOP_CENTER" style="-fx-padding:6;">
                     <children>
-                        <Button mnemonicParsing="false" text="Projets" prefWidth="180" style="-fx-background-radius:8; -fx-background-color: transparent; -fx-text-fill: white; -fx-border-color: rgba(255,255,255,0.12); -fx-border-radius:8; -fx-padding:8 10;">
+                        <Button fx:id="projetsbtn" mnemonicParsing="false" text="Projets" prefWidth="180"
+                                style="-fx-background-radius:8; -fx-background-color: transparent; -fx-text-fill: white; -fx-border-color: rgba(255,255,255,0.12); -fx-border-radius:8; -fx-padding:8 10;">
                             <font><Font size="14" /></font>
                         </Button>
-                        <Button mnemonicParsing="false" text="Tâches" prefWidth="180" style="-fx-background-radius:8; -fx-background-color: transparent; -fx-text-fill: white; -fx-border-color: rgba(255,255,255,0.12); -fx-border-radius:8; -fx-padding:8 10;">
+
+                        <Button fx:id="tachesbtn" mnemonicParsing="false" text="Tâches" prefWidth="180"
+                                style="-fx-background-radius:8; -fx-background-color: transparent; -fx-text-fill: white; -fx-border-color: rgba(255,255,255,0.12); -fx-border-radius:8; -fx-padding:8 10;">
                             <font><Font size="14" /></font>
                         </Button>
-                        <Button mnemonicParsing="false" text="Utilisateurs" prefWidth="180" style="-fx-background-radius:8; -fx-background-color: transparent; -fx-text-fill: white; -fx-border-color: rgba(255,255,255,0.12); -fx-border-radius:8; -fx-padding:8 10;">
+
+                        <Button fx:id="utilisateursbtn" mnemonicParsing="false" text="Collaborateurs" prefWidth="180"
+                                style="-fx-background-radius:8; -fx-background-color: transparent; -fx-text-fill: white; -fx-border-color: rgba(255,255,255,0.12); -fx-border-radius:8; -fx-padding:8 10;">
                             <font><Font size="14" /></font>
                         </Button>
-                        <Button mnemonicParsing="false" text="Calendrier" prefWidth="180" style="-fx-background-radius:8; -fx-background-color: transparent; -fx-text-fill: white; -fx-border-color: rgba(255,255,255,0.12); -fx-border-radius:8; -fx-padding:8 10;">
+
+                        <Button fx:id="calendrierbtn" mnemonicParsing="false" text="Calendrier" prefWidth="180"
+                                style="-fx-background-radius:8; -fx-background-color: transparent; -fx-text-fill: white; -fx-border-color: rgba(255,255,255,0.12); -fx-border-radius:8; -fx-padding:8 10;">
                             <font><Font size="14" /></font>
                         </Button>
                     </children>
