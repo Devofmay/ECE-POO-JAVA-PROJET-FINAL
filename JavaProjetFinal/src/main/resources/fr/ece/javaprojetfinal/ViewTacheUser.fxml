@@ -44,7 +44,7 @@
 
                 <VBox alignment="TOP_CENTER" spacing="8" style="-fx-padding:6;">
                     <children>
-                        <Button text="Tâches" prefWidth="180"
+                        <Button fx:id="tachebtn" text="Tâches" prefWidth="180"
                                 style="-fx-background-color: transparent; -fx-text-fill: white;
                                        -fx-border-color: rgba(255,255,255,0.12); -fx-border-radius:8;
                                        -fx-padding:8 10;" />

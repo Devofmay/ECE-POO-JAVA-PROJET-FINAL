@@ -75,6 +75,9 @@ public class InsideProjetAdminController {
     @FXML
     private Button utilisateursbtn;
 
+    @FXML
+    private Button projetsbtn;
+
     private final ObservableList<Tache> taskNames = FXCollections.observableArrayList();
     private final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
     private final DateTimeFormatter localDateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -187,6 +190,42 @@ public class InsideProjetAdminController {
                     }
                 } catch (IOException ex) {
                     ex.printStackTrace();
+                }
+            });
+        }
+        // wire the "Projets" button to open HomeprojetsAdmin.fxml (like Home controller)
+        if (projetsbtn != null) {
+            projetsbtn.setOnAction(ev -> {
+                try {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/fr/ece/javaprojetfinal/HomeprojetsAdmin.fxml"));
+                    Parent root = loader.load();
+                    HomeProjetAdmincontroller adminController = loader.getController();
+                    adminController.setLoggedInUserId(1);
+                    adminController.setUser(1, "Admin", true);
+
+                    Stage stage = null;
+                    Scene old = null;
+                    if (projetsbtn.getScene() != null) {
+                        old = projetsbtn.getScene();
+                        if (old.getWindow() instanceof Stage) stage = (Stage) old.getWindow();
+                    }
+
+                    Scene newScene = new Scene(root);
+                    if (old != null) newScene.getStylesheets().addAll(old.getStylesheets());
+
+                    if (stage != null) {
+                        stage.setScene(newScene);
+                        stage.setTitle("Mes projets");
+                        stage.sizeToScene();
+                    } else {
+                        Stage s = new Stage();
+                        s.setScene(newScene);
+                        s.setTitle("Mes projets");
+                        s.show();
+                    }
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                    System.err.println("Cannot open projects view: " + ex.getMessage());
                 }
             });
         }

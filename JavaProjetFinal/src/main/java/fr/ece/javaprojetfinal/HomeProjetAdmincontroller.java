@@ -12,9 +12,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
@@ -110,9 +108,6 @@ public class HomeProjetAdmincontroller {
                 }
             });
         }
-
-        // do NOT set parametresbtn handler here with a hardcoded id.
-        // Handler will be set when the real loggedInUserId is injected via setLoggedInUserId(...)
     }
 
     /**
