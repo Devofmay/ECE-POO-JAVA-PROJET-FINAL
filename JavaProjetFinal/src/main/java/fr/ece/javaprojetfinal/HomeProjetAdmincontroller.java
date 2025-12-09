@@ -14,7 +14,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.BorderPane;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -23,7 +22,7 @@ import java.util.List;
 
 public class HomeProjetAdmincontroller {
     @FXML
-    private BorderPane rootPane; // add reference to top-level BorderPane
+    private BorderPane rootPane; // top-level BorderPane
 
     @FXML
     private Label usernameSpot;
@@ -39,6 +38,10 @@ public class HomeProjetAdmincontroller {
 
     @FXML
     private TableColumn<Projet, Projet> actionsCol;
+
+    // Sidebar button (wired in FXML)
+    @FXML
+    private javafx.scene.control.Button utilisateursbtn;
 
     private final ObservableList<Projet> projects = FXCollections.observableArrayList();
 
@@ -82,6 +85,40 @@ public class HomeProjetAdmincontroller {
             actionsCol.setCellFactory(col -> new ActionsCell(this));
 
             projectsTable.setItems(projects);
+        }
+
+        // wire utilisateursbtn to open InsideCollabo.fxml
+        if (utilisateursbtn != null) {
+            utilisateursbtn.setOnAction(ev -> {
+                try {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/fr/ece/javaprojetfinal/InsideCollabo.fxml"));
+                    Parent root = loader.load();
+
+                    // attempt to find the current stage
+                    Stage stage = null;
+                    Scene old = null;
+                    if (utilisateursbtn.getScene() != null) {
+                        old = utilisateursbtn.getScene();
+                        if (old.getWindow() instanceof Stage) {
+                            stage = (Stage) old.getWindow();
+                        }
+                    }
+
+                    Scene newScene = new Scene(root);
+                    if (old != null) newScene.getStylesheets().addAll(old.getStylesheets());
+
+                    if (stage != null) {
+                        stage.setScene(newScene);
+                        stage.setTitle("Collaborateurs");
+                        stage.sizeToScene();
+                    } else if (rootPane != null) {
+                        // fallback: replace center of current BorderPane
+                        rootPane.setCenter(root);
+                    }
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            });
         }
     }
 
