@@ -99,6 +99,7 @@
 
                     <!-- Column 5: Status -->
                     <TableColumn fx:id="statusColumn" prefWidth="140" text="Statut" />
+                    <TableColumn fx:id="actionsColumn" prefWidth="180" text="Actions" />
 
                 </columns>
             </TableView>

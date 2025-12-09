@@ -4,19 +4,23 @@ import fr.ece.javaprojetfinal.basics.Projet;
 import fr.ece.javaprojetfinal.basics.ProjetDAO;
 import fr.ece.javaprojetfinal.basics.Tache;
 import javafx.application.Platform;
+import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -58,6 +62,9 @@ public class InsideProjetAdminController {
     private TableColumn<Tache, String> statusColumn;
 
     @FXML
+    private TableColumn<Tache, Tache> actionsColumn;
+
+    @FXML
     private Button modifprojet;
 
     private final ObservableList<Tache> taskNames = FXCollections.observableArrayList();
@@ -69,28 +76,24 @@ public class InsideProjetAdminController {
     @FXML
     private void initialize() {
         if (tasksTable != null) {
-            // Title / name - try several common getter names
             taskNameColumn.setCellValueFactory(cell -> {
                 Tache t = cell.getValue();
                 String v = safeGetString(t, new String[]{"getNom", "getTitre", "getTitle", "getName"});
                 return new ReadOnlyStringWrapper(v);
             });
 
-            // Creation date - try common getters and format both LocalDate and java.util.Date
             creationDateColumn.setCellValueFactory(cell -> {
                 Tache t = cell.getValue();
                 String v = safeGetDateString(t, new String[]{"getDateCreation", "getCreationDate", "getDateCreated"});
                 return new ReadOnlyStringWrapper(v);
             });
 
-            // Due date / deadline
             dueDateColumn.setCellValueFactory(cell -> {
                 Tache t = cell.getValue();
                 String v = safeGetDateString(t, new String[]{"getDateEcheances", "getDateEcheance", "getDueDate", "getDateDeadline"});
                 return new ReadOnlyStringWrapper(v);
             });
 
-            // Owner and status - try common names
             ownerColumn.setCellValueFactory(cell -> {
                 Tache t = cell.getValue();
                 String v = safeGetString(t, new String[]{"getOwnerName", "getResponsable", "getResponsableName", "getAssignee"});
@@ -103,6 +106,43 @@ public class InsideProjetAdminController {
                 return new ReadOnlyStringWrapper(v);
             });
 
+            // Actions column with modify/delete buttons
+            if (actionsColumn != null) {
+                actionsColumn.setCellValueFactory(cell -> new ReadOnlyObjectWrapper<>(cell.getValue()));
+                actionsColumn.setCellFactory(col -> new TableCell<Tache, Tache>() {
+                    private final HBox container = new HBox(8);
+                    private final Button modifyBtn = new Button("Modifier");
+                    private final Button deleteBtn = new Button("Supprimer");
+
+                    {
+                        container.setPadding(new Insets(4));
+                        modifyBtn.setStyle("-fx-background-radius:6; -fx-background-color: #3b82f6; -fx-text-fill: white; -fx-font-size:11;");
+                        deleteBtn.setStyle("-fx-background-radius:6; -fx-background-color: #ef4444; -fx-text-fill: white; -fx-font-size:11;");
+                        container.getChildren().addAll(modifyBtn, deleteBtn);
+
+                        modifyBtn.setOnAction(e -> {
+                            Tache t = getTableView().getItems().get(getIndex());
+                            if (t != null) modifyTask(t);
+                        });
+
+                        deleteBtn.setOnAction(e -> {
+                            Tache t = getTableView().getItems().get(getIndex());
+                            if (t != null) deleteTask(t);
+                        });
+                    }
+
+                    @Override
+                    protected void updateItem(Tache item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (empty) {
+                            setGraphic(null);
+                        } else {
+                            setGraphic(container);
+                        }
+                    }
+                });
+            }
+
             tasksTable.setItems(taskNames);
         }
 
@@ -113,6 +153,52 @@ public class InsideProjetAdminController {
         if (modifprojet != null) {
             modifprojet.setOnAction(e -> openModifierProjet());
         }
+    }
+
+    private void modifyTask(Tache t) {
+        try {
+            Stage stage = null;
+            Scene oldScene = null;
+
+            if (tasksTable != null && tasksTable.getScene() != null && tasksTable.getScene().getWindow() instanceof Stage) {
+                stage = (Stage) tasksTable.getScene().getWindow();
+                oldScene = tasksTable.getScene();
+            }
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fr/ece/javaprojetfinal/ModifierTache.fxml"));
+            Parent modifierRoot = loader.load();
+
+            ModifierTachecontroller controller = loader.getController();
+            if (controller != null) {
+                controller.setTask(t);
+                controller.setPreviousScene(oldScene);
+                controller.setParentController(this);
+            }
+
+            if (stage != null) {
+                Scene newScene = new Scene(modifierRoot);
+                if (oldScene != null) newScene.getStylesheets().addAll(oldScene.getStylesheets());
+                stage.setScene(newScene);
+                stage.setTitle("Modifier la tâche - " + t.getNom());
+                stage.sizeToScene();
+            } else {
+                Stage s = new Stage();
+                s.setScene(new Scene(modifierRoot));
+                s.setTitle("Modifier la tâche - " + t.getNom());
+                s.show();
+            }
+
+        } catch (IOException ex) {
+            System.err.println("Failed to load ModifierTache.fxml: " + ex.getMessage());
+            ex.printStackTrace();
+        }
+    }
+
+
+    private void deleteTask(Tache t) {
+        System.out.println("Delete task: " + t.getNom());
+        // TODO: Implement delete task logic
+        taskNames.remove(t);
     }
 
     private String safeGetString(Tache t, String[] getterNames) {
@@ -180,7 +266,6 @@ public class InsideProjetAdminController {
             if (responsableName == null) responsableName = "";
             for (Tache t : tasks) {
                 try {
-                    // best-effort: set owner if setter exists
                     try {
                         Method setOwner = t.getClass().getMethod("setOwnerName", String.class);
                         setOwner.invoke(t, responsableName);
