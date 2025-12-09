@@ -12,14 +12,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +42,8 @@ public class HomeUserTacheController {
     @FXML
     private TableColumn<Tache, Tache> actionsCol;
     @FXML private Button parametresBtn;
+    @FXML
+    private Button calendrierbtn;
 
 
     // card labels (from FXML)
@@ -114,6 +114,35 @@ public class HomeUserTacheController {
             int loggedInUserId = 2; // replace with actual id from your login flow
             SettingsLauncher.openParametresForUser(loggedInUserId, (Node) parametresBtn);
     });
+        if (calendrierbtn != null) {
+            calendrierbtn.setOnAction(ev -> {
+                try {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/fr/ece/javaprojetfinal/Calendar.fxml"));
+                    Parent root = loader.load();
+
+                    Scene newScene = new Scene(root, 1000, 700);
+
+                    // preserve stylesheets from the current scene if present
+                    Scene oldScene = calendrierbtn.getScene();
+                    if (oldScene != null) {
+                        newScene.getStylesheets().addAll(oldScene.getStylesheets());
+                    }
+
+                    // Always open in a separate window (new Stage)
+                    Stage calendarStage = new Stage();
+                    calendarStage.setTitle("Mon Calendrier");
+                    calendarStage.setScene(newScene);
+                    calendarStage.sizeToScene();
+                    calendarStage.show();
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    Alert err = new Alert(Alert.AlertType.ERROR, "Cannot open calendar: " + e.getMessage(), ButtonType.OK);
+                    err.showAndWait();
+                }
+            });
+        }
+
     }
 
     private void loadTasksForUser() {

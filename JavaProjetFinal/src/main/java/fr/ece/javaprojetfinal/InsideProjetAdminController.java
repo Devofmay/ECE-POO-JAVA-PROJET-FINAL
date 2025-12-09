@@ -13,13 +13,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
@@ -77,6 +71,9 @@ public class InsideProjetAdminController {
 
     @FXML
     private Button projetsbtn;
+
+    @FXML
+    private Button calendrierbtn;
 
     private final ObservableList<Tache> taskNames = FXCollections.observableArrayList();
     private final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -229,6 +226,35 @@ public class InsideProjetAdminController {
                 }
             });
         }
+        if (calendrierbtn != null) {
+            calendrierbtn.setOnAction(ev -> {
+                try {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/fr/ece/javaprojetfinal/Calendar.fxml"));
+                    Parent root = loader.load();
+
+                    Scene newScene = new Scene(root, 1000, 700);
+
+                    // preserve stylesheets from the current scene if present
+                    Scene oldScene = calendrierbtn.getScene();
+                    if (oldScene != null) {
+                        newScene.getStylesheets().addAll(oldScene.getStylesheets());
+                    }
+
+                    // Always open in a separate window (new Stage)
+                    Stage calendarStage = new Stage();
+                    calendarStage.setTitle("Mon Calendrier");
+                    calendarStage.setScene(newScene);
+                    calendarStage.sizeToScene();
+                    calendarStage.show();
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    Alert err = new Alert(Alert.AlertType.ERROR, "Cannot open calendar: " + e.getMessage(), ButtonType.OK);
+                    err.showAndWait();
+                }
+            });
+        }
+
     }
 
     // rest of class unchanged...

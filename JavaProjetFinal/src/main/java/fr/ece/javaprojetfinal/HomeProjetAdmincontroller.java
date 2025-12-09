@@ -37,6 +37,8 @@ public class HomeProjetAdmincontroller {
     private javafx.scene.control.Button utilisateursbtn;
     @FXML
     private javafx.scene.control.Button parametresbtn;
+    @FXML
+    private javafx.scene.control.Button calendrierbtn;
 
     private final ObservableList<Projet> projects = FXCollections.observableArrayList();
     private int loggedInUserId = -1;
@@ -105,6 +107,34 @@ public class HomeProjetAdmincontroller {
                     }
                 } catch (IOException ex) {
                     ex.printStackTrace();
+                }
+            });
+        }
+        if (calendrierbtn != null) {
+            calendrierbtn.setOnAction(ev -> {
+                try {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/fr/ece/javaprojetfinal/Calendar.fxml"));
+                    Parent root = loader.load();
+
+                    Scene newScene = new Scene(root, 1000, 700);
+
+                    // preserve stylesheets from the current scene if present
+                    Scene oldScene = calendrierbtn.getScene();
+                    if (oldScene != null) {
+                        newScene.getStylesheets().addAll(oldScene.getStylesheets());
+                    }
+
+                    // Always open in a separate window (new Stage)
+                    Stage calendarStage = new Stage();
+                    calendarStage.setTitle("Mon Calendrier");
+                    calendarStage.setScene(newScene);
+                    calendarStage.sizeToScene();
+                    calendarStage.show();
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    Alert err = new Alert(Alert.AlertType.ERROR, "Cannot open calendar: " + e.getMessage(), ButtonType.OK);
+                    err.showAndWait();
                 }
             });
         }
