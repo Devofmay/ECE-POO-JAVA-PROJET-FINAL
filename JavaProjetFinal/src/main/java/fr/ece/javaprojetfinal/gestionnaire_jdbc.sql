@@ -88,7 +88,18 @@ CREATE TABLE `taches` (
   `Statut` varchar(50) DEFAULT 'À faire',
   `Priorite` varchar(50) DEFAULT 'Moyen'
 ) ;
-
+' ||
+    CREATE TABLE IF NOT EXISTS events (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    description TEXT,
+    start_time DATETIME NOT NULL,
+    end_time DATETIME NOT NULL,
+    is_full_day BOOLEAN DEFAULT FALSE,
+    admin_id INT NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT NULL
+);
 --
 -- Dumping data for table `taches`
 --
@@ -279,3 +290,27 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+-- Table pour stocker les événements du planning
+CREATE TABLE IF NOT EXISTS events (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    title VARCHAR(255) NOT NULL,
+    description TEXT,
+    start_time DATETIME NOT NULL,
+    end_time DATETIME NOT NULL,
+    is_full_day BOOLEAN DEFAULT FALSE,
+    admin_id INT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+
+    -- Index pour améliorer les performances
+    INDEX idx_admin_id (admin_id),
+    INDEX idx_start_time (start_time),
+    INDEX idx_end_time (end_time)
+);
+
+-- Exemple d'événements de test (optionnel)
+INSERT INTO events (title, description, start_time, end_time, is_full_day, admin_id) VALUES
+('Réunion d\'équipe', 'Salle de conférence A - Point hebdomadaire', '2025-12-08 09:00:00', '2025-12-08 10:30:00', FALSE, 1),
+('Formation Java', 'Formation avancée JavaFX et bases de données', '2025-12-09 14:00:00', '2025-12-09 17:00:00', FALSE, 1),
+('Congé', 'Jour férié', '2025-12-25 00:00:00', '2025-12-25 23:59:59', TRUE, 1);
+
