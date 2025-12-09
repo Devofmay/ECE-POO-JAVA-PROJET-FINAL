@@ -109,8 +109,11 @@ public class InsideCollabocontroller {
         if (projetsbtn != null) {
             projetsbtn.setOnAction(ev -> {
                 try {
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/fr/ece/javaprojetfinal/HomeprojetsAdmin.fxml"));
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("HomeprojetsAdmin.fxml"));
                     Parent root = loader.load();
+                    HomeProjetAdmincontroller adminController = loader.getController();
+                    adminController.setLoggedInUserId(1);
+                    adminController.setUser(1, "Admin", true);
 
                     Stage stage = null;
                     Scene old = null;

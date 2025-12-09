@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 
-public class ModifierUsercontroller {
+public class  ModifierUsercontroller {
     @FXML
     private TextField nomField;
     @FXML
