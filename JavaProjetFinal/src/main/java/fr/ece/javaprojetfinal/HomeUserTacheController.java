@@ -7,7 +7,9 @@ import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -178,19 +180,22 @@ public class HomeUserTacheController {
     // simple task opener: opens a small window showing basic task info
     public void openTask(Tache t) {
         Platform.runLater(() -> {
-            Stage stage = new Stage();
-            stage.initModality(Modality.NONE);
-            stage.setTitle("Tâche - " + t.getNom());
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("ViewTacheUser.fxml"));
+                var root = loader.load();
+                ViewTacheUsercontroller ctrl = loader.getController();
+                ctrl.setTask(t);
 
-            Label name = new Label("Tâche: " + t.getNom());
-            Label projet = new Label("Projet: " + (t.getProjetNom() != null ? t.getProjetNom() : "-"));
-            Label due = new Label("Date d'échéance: " + (t.getDateEcheance() != null ? t.getDateEcheance().toString() : "-"));
-            VBox box = new VBox(8, name, projet, due);
-            box.setStyle("-fx-padding:12; -fx-background-color:white;");
-
-            stage.setScene(new Scene(box));
-            stage.sizeToScene();
-            stage.show();
+                Stage stage = new Stage();
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.setTitle("Tâche - " + (t.getNom() != null ? t.getNom() : ""));
+                stage.setScene(new Scene((Parent) root));
+                stage.sizeToScene();
+                stage.show();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
         });
     }
+
 }

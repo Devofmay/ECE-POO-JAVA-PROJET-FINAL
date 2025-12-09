@@ -68,4 +68,13 @@ public class Tache {
             this.dateEcheance = d.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         }
     }
+
+    public String getResponsable() {
+        return ownerName;
+    }
+
+    public void setResponsable(String responsable) {
+        this.ownerName = responsable;
+    }
+
 }

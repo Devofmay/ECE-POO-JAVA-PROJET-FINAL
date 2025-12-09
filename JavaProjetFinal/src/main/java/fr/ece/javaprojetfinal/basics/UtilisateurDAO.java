@@ -68,4 +68,19 @@ public class UtilisateurDAO {
         }
     }
 
+    // New helper: find a user's name by their ID
+    public String findNameById(int id) throws SQLException {
+        String sql = "SELECT Name FROM utilisateur WHERE ID = ?";
+        try (Connection c = DBconnect.getConnection();
+             PreparedStatement ps = c.prepareStatement(sql)) {
+            ps.setInt(1, id);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getString("Name");
+                }
+            }
+        }
+        return null;
+    }
+
 }
