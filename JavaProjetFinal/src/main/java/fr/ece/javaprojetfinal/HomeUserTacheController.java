@@ -1,5 +1,6 @@
 package fr.ece.javaprojetfinal;
 
+import fr.ece.javaprojetfinal.basics.SettingsLauncher;
 import fr.ece.javaprojetfinal.basics.Tache;
 import fr.ece.javaprojetfinal.basics.TacheDAO;
 import javafx.application.Platform;
@@ -42,6 +43,8 @@ public class HomeUserTacheController {
 
     @FXML
     private TableColumn<Tache, Tache> actionsCol;
+    @FXML private Button parametresBtn;
+
 
     // card labels (from FXML)
     @FXML private Label projetnamespot1;
@@ -107,6 +110,10 @@ public class HomeUserTacheController {
             tasksTable.setItems(tasks);
             tasksTable.setPlaceholder(new Label("Aucune tâche pour cet utilisateur"));
         }
+        parametresBtn.setOnAction(evt -> {
+            int loggedInUserId = 2; // replace with actual id from your login flow
+            SettingsLauncher.openParametresForUser(loggedInUserId, (Node) parametresBtn);
+    });
     }
 
     private void loadTasksForUser() {
