@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane prefHeight="560" prefWidth="900" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.ece.javaprojetfinal.basics.ModifierProjetController">
+
+    <!-- HEADER -->
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="12" style="-fx-padding:12; -fx-background-radius:0 0 12 12;                      -fx-background-color: linear-gradient(to right, #4b6cb7, #182848);">
+
+            <children>
+
+                <Label style="-fx-text-fill: white;" text="Project Manager">
+                    <font><Font size="20" /></font>
+                </Label>
+
+                <Region HBox.hgrow="ALWAYS" />
+
+                <Button fx:id="logoutbtn" style="-fx-background-color: transparent; -fx-text-fill: white;                                -fx-border-color: rgba(255,255,255,0.2);                                -fx-border-radius:6; -fx-padding:6 12;" text="Déconnexion">
+                    <tooltip><Tooltip text="Se déconnecter" /></tooltip>
+                </Button>
+
+            </children>
+        </HBox>
+    </top>
+
+
+    <!-- SIDEBAR -->
+    <left>
+        <VBox alignment="TOP_CENTER" spacing="18" style="-fx-padding:18; -fx-background-color: linear-gradient(to bottom, #1f3c88, #254a9b);                      -fx-pref-width:220;">
+
+            <children>
+
+                <!-- Avatar -->
+                <StackPane alignment="CENTER" prefHeight="120">
+                    <children>
+                        <Circle radius="40" style="-fx-fill: linear-gradient(#ffffff44, #ffffff11);                                        -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.35),8,0,0,2);" />
+                        <Label fx:id="usernameField" style="-fx-text-fill: white; -fx-font-weight: bold;" text="Utilisateur" />
+                    </children>
+                </StackPane>
+
+                <!-- Menu -->
+                <VBox alignment="TOP_CENTER" spacing="8" style="-fx-padding:6;">
+                    <children>
+                        <Button fx:id="projetsbtn" prefWidth="180" style="-fx-background-color: transparent; -fx-text-fill: white;                                        -fx-border-color: rgba(255,255,255,0.12);                                        -fx-border-radius:8; -fx-padding:8 10;" text="Projets" />
+
+                        <Button fx:id="tachesbtn" prefWidth="180" style="-fx-background-color: transparent; -fx-text-fill: white;                                        -fx-border-color: rgba(255,255,255,0.12);                                        -fx-border-radius:8; -fx-padding:8 10;" text="Tâches" />
+
+                        <Button fx:id="calendrierbtn" prefWidth="180" style="-fx-background-color: transparent; -fx-text-fill: white;                                        -fx-border-color: rgba(255,255,255,0.12);                                        -fx-border-radius:8; -fx-padding:8 10;" text="Calendrier" />
+                    </children>
+                </VBox>
+
+                <Region VBox.vgrow="ALWAYS" />
+
+                <Button prefWidth="180" style="-fx-background-radius:8;                                -fx-background-color: rgba(255,255,255,0.06);                                -fx-text-fill: white; -fx-padding:8 10;" text="Paramètres" />
+            </children>
+        </VBox>
+    </left>
+
+
+    <!-- MAIN CONTENT -->
+    <center>
+        <VBox spacing="18" style="-fx-padding:20; -fx-background-color:#F6F8FF;">
+
+            <children>
+
+                <!-- Title + Return button -->
+                <HBox alignment="CENTER_LEFT" spacing="12">
+                    <children>
+                        <Label style="-fx-text-fill:#1f2b59;">
+                            <font><Font size="20" /></font>
+                        </Label>
+
+                        <Region HBox.hgrow="ALWAYS" />
+
+                        <Button fx:id="retourBtn" style="-fx-background-color:#5A6FA8; -fx-text-fill:white;                                        -fx-background-radius:8; -fx-padding:6 16;" text="Retour" />
+                    </children>
+                </HBox>
+
+
+                <!-- FORM CARD -->
+                <VBox maxWidth="650" spacing="18" style="-fx-background-color:white; -fx-padding:18;                              -fx-background-radius:12;                              -fx-effect:dropshadow(gaussian, rgba(0,0,0,0.12),12,0,0,2);">
+
+                    <!-- Nom -->
+                    <VBox spacing="6">
+                        <Label style="-fx-text-fill:#1f2b59; -fx-font-weight:bold;" text="Nom de la tâche" />
+                    </VBox>
+               <Label prefHeight="39.0" prefWidth="479.0" text="Label" />
+
+                    <!-- Description -->
+                    <VBox spacing="6">
+                        <Label style="-fx-text-fill:#1f2b59; -fx-font-weight:bold;" text="Description" />
+                    </VBox>
+               <Label layoutX="28.0" layoutY="63.0" prefHeight="39.0" prefWidth="479.0" text="Label" />
+
+                    <!-- Row aligned: Date / Responsable / Statut / Priorité -->
+                    <HBox spacing="20">
+
+                        <!-- Date -->
+                        <VBox spacing="6" HBox.hgrow="ALWAYS">
+                            <Label style="-fx-text-fill:#1f2b59; -fx-font-weight:bold;" text="Date d'échéance" />
+                     <Label prefHeight="39.0" prefWidth="123.0" text="Label" />
+                        </VBox>
+
+                        <!-- Responsable -->
+                        <VBox spacing="6" HBox.hgrow="ALWAYS">
+                            <Label style="-fx-text-fill:#1f2b59; -fx-font-weight:bold;" text="Responsable" />
+                     <Label prefHeight="39.0" prefWidth="123.0" text="Label" />
+                        </VBox>
+
+                        <!-- Statut -->
+                        <VBox spacing="6" HBox.hgrow="ALWAYS">
+                            <Label style="-fx-text-fill:#1f2b59; -fx-font-weight:bold;" text="Statut" />
+                     <Label prefHeight="39.0" prefWidth="123.0" text="Label" />
+                        </VBox>
+
+                        <!-- Priorité -->
+                        <VBox spacing="6" HBox.hgrow="ALWAYS">
+                            <Label style="-fx-text-fill:#1f2b59; -fx-font-weight:bold;" text="Priorité" />
+                     <Label prefHeight="39.0" prefWidth="123.0" text="Label" />
+                        </VBox>
+
+                    </HBox>
+
+
+                    <!-- Buttons -->
+                    <HBox alignment="CENTER_RIGHT" spacing="12" />
+
+                </VBox>
+
+            </children>
+        </VBox>
+    </center>
+
+</BorderPane>
