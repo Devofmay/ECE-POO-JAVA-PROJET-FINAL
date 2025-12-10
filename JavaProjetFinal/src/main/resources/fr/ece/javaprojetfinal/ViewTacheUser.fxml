@@ -1,137 +1,242 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.shape.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="560" prefWidth="900"
-            xmlns="http://javafx.com/javafx/17.0.12"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="fr.ece.javaprojetfinal.ViewTacheUsercontroller">
+<VBox xmlns="http://javafx.com/javafx/17.0.12"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="fr.ece.javaprojetfinal.ViewTacheUsercontroller"
+      spacing="0">
 
-    <!-- HEADER -->
-    <top>
-        <HBox alignment="CENTER_LEFT" spacing="12"
-              style="-fx-padding:12; -fx-background-color: linear-gradient(to right, #4b6cb7, #182848);">
-            <children>
-                <Label text="Project Manager" style="-fx-text-fill: white;">
-                    <font><Font size="20" /></font>
-                </Label>
+    <!-- ESPACE POUR FENÊTRE WINDOWS -->
+    <padding>
+        <Insets top="10"/>
+    </padding>
 
-                <Region HBox.hgrow="ALWAYS" />
+    <children>
 
-                <Button text="Déconnexion"
-                        style="-fx-background-color: transparent; -fx-text-fill: white;
-                               -fx-border-color: rgba(255,255,255,0.2); -fx-border-radius:6; -fx-padding:6 12;" />
-            </children>
-        </HBox>
-    </top>
+        <!-- SCROLLPANE RESPONSIVE -->
+        <ScrollPane fitToHeight="true"
+                    fitToWidth="true"
+                    hbarPolicy="NEVER"
+                    vbarPolicy="AS_NEEDED"
+                    style="-fx-background-color: transparent; -fx-background: transparent;"
+                    VBox.vgrow="ALWAYS">
 
-    <!-- SIDEBAR -->
-    <left>
-        <VBox alignment="TOP_CENTER" spacing="18"
-              style="-fx-padding:18; -fx-background-color: linear-gradient(to bottom, #1f3c88, #254a9b);
-                     -fx-pref-width:220;">
-            <children>
-                <StackPane alignment="CENTER" prefHeight="120">
-                    <children>
-                        <Circle radius="40"
-                                style="-fx-fill: linear-gradient(#ffffff44, #ffffff11);
-                                       -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.35),8,0,0,2);" />
-                        <Label text="Utilisateur" style="-fx-text-fill: white; -fx-font-weight: bold;"/>
-                    </children>
-                </StackPane>
+            <content>
 
-                <VBox alignment="TOP_CENTER" spacing="8" style="-fx-padding:6;">
-                    <children>
-                        <Button text="Tâches" prefWidth="180"
-                                style="-fx-background-color: transparent; -fx-text-fill: white;
-                                       -fx-border-color: rgba(255,255,255,0.12); -fx-border-radius:8;
-                                       -fx-padding:8 10;" />
-                        <Button text="Projets" prefWidth="180"
-                                style="-fx-background-color: transparent; -fx-text-fill: white;
-                                       -fx-border-color: rgba(255,255,255,0.12); -fx-border-radius:8;
-                                       -fx-padding:8 10;" />
-                        <Button text="Calendrier" prefWidth="180"
-                                style="-fx-background-color: transparent; -fx-text-fill: white;
-                                       -fx-border-color: rgba(255,255,255,0.12); -fx-border-radius:8;
-                                       -fx-padding:8 10;" />
-                    </children>
-                </VBox>
+                <!-- PAGE FORMAT LARGE 1200px -->
+                <BorderPane prefWidth="1200"
+                            minWidth="1200"
+                            maxWidth="1300"
+                            prefHeight="700">
 
-                <Region VBox.vgrow="ALWAYS" />
+                    <!-- HEADER -->
+                    <top>
+                        <HBox alignment="CENTER_LEFT"
+                              spacing="12"
+                              style="-fx-padding:12;
+                                     -fx-background-color: linear-gradient(to right, #4b6cb7, #182848);">
 
-                <Button text="Paramètres" prefWidth="180"
-                        style="-fx-background-radius:8; -fx-background-color: rgba(255,255,255,0.06);
-                               -fx-text-fill: white; -fx-padding:8 10;" />
-            </children>
-        </VBox>
-    </left>
+                            <children>
+                                <Label text="Project Manager" style="-fx-text-fill:white;">
+                                    <font><Font size="20"/></font>
+                                </Label>
 
-    <!-- MAIN CONTENT -->
-    <center>
-        <VBox spacing="18" style="-fx-padding:20; -fx-background-color:#F6F8FF;">
-            <children>
+                                <Region HBox.hgrow="ALWAYS"/>
 
-                <HBox alignment="CENTER_LEFT">
-                    <children>
-                        <Label text="Détails de la tâche" style="-fx-text-fill:#1f2b59;">
-                            <font><Font size="22"/></font>
-                        </Label>
-                        <Region HBox.hgrow="ALWAYS" />
-                        <Button text="Fermer" style="-fx-background-color:#5A6FA8; -fx-text-fill:white; -fx-background-radius:8; -fx-padding:6 16;"
-                                onAction="#closeWindow"/>
-                    </children>
-                </HBox>
+                                <Button fx:id="logoutbtn"
+                                        text="Déconnexion"
+                                        style="-fx-background-color: transparent;
+                                               -fx-text-fill: white;
+                                               -fx-border-color: rgba(255,255,255,0.2);
+                                               -fx-border-radius:6;
+                                               -fx-padding:6 12;"/>
+                            </children>
 
-                <VBox maxWidth="750" spacing="18"
-                      style="-fx-background-color:white; -fx-padding:18; -fx-background-radius:12;
-                             -fx-effect:dropshadow(gaussian, rgba(0,0,0,0.12),12,0,0,2);">
+                        </HBox>
+                    </top>
 
-                    <!-- Name -->
-                    <VBox spacing="6">
-                        <Label text="Nom de la tâche" style="-fx-text-fill:#1f2b59; -fx-font-weight:bold;" />
-                        <Label fx:id="nameLabel" text="-" style="-fx-text-fill:#1f2b59;" />
-                    </VBox>
 
-                    <!-- Project -->
-                    <VBox spacing="6">
-                        <Label text="Projet" style="-fx-text-fill:#1f2b59; -fx-font-weight:bold;" />
-                        <Label fx:id="projectLabel" text="-" style="-fx-text-fill:#1f2b59;" />
-                    </VBox>
+                    <!-- SIDEBAR -->
+                    <left>
+                        <VBox alignment="TOP_CENTER"
+                              spacing="18"
+                              style="-fx-padding:18;
+                                     -fx-background-color: linear-gradient(to bottom, #1f3c88, #254a9b);
+                                     -fx-pref-width:220;">
 
-                    <!-- Description -->
-                    <VBox spacing="6">
-                        <Label text="Description" style="-fx-text-fill:#1f2b59; -fx-font-weight:bold;" />
-                        <TextArea fx:id="descriptionArea" prefRowCount="6" wrapText="true" editable="false"/>
-                    </VBox>
+                            <children>
 
-                    <!-- Row: Date / Responsable / Statut / Priorité -->
-                    <HBox spacing="20">
-                        <VBox spacing="6" HBox.hgrow="ALWAYS">
-                            <Label text="Date d'échéance" style="-fx-text-fill:#1f2b59; -fx-font-weight:bold;" />
-                            <Label fx:id="dateLabel" text="-" />
+                                <!-- AVATAR -->
+                                <StackPane alignment="CENTER" prefHeight="120">
+                                    <children>
+                                        <Circle radius="40"
+                                                style="-fx-fill: linear-gradient(#ffffff44,#ffffff11);
+                                                       -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.35),8,0,0,2);"/>
+                                        <Label fx:id="usernameLabel"
+                                               text="Utilisateur"
+                                               style="-fx-text-fill:white; -fx-font-weight:bold;"/>
+                                    </children>
+                                </StackPane>
+
+
+                                <!-- MENU -->
+                                <VBox alignment="TOP_CENTER" spacing="8" style="-fx-padding:6;">
+                                    <children>
+
+                                        <Button fx:id="tachesbtn" text="Tâches"
+                                                prefWidth="180"
+                                                style="-fx-background-color: transparent;
+                                                       -fx-text-fill:white;
+                                                       -fx-border-color: rgba(255,255,255,0.12);
+                                                       -fx-border-radius:8;
+                                                       -fx-padding:8 10;"/>
+
+                                        <Button fx:id="projetsbtn" text="Projets"
+                                                prefWidth="180"
+                                                style="-fx-background-color: transparent;
+                                                       -fx-text-fill:white;
+                                                       -fx-border-color: rgba(255,255,255,0.12);
+                                                       -fx-border-radius:8;
+                                                       -fx-padding:8 10;"/>
+
+                                        <Button fx:id="calendrierbtn" text="Calendrier"
+                                                prefWidth="180"
+                                                style="-fx-background-color: transparent;
+                                                       -fx-text-fill:white;
+                                                       -fx-border-color: rgba(255,255,255,0.12);
+                                                       -fx-border-radius:8;
+                                                       -fx-padding:8 10;"/>
+
+                                    </children>
+                                </VBox>
+
+                                <Region VBox.vgrow="ALWAYS"/>
+
+                                <Button fx:id="parametresbtn"
+                                        text="Paramètres"
+                                        prefWidth="180"
+                                        style="-fx-background-radius:8;
+                                               -fx-background-color: rgba(255,255,255,0.06);
+                                               -fx-text-fill:white;
+                                               -fx-padding:8 10;"/>
+
+                            </children>
                         </VBox>
+                    </left>
 
-                        <VBox spacing="6" HBox.hgrow="ALWAYS">
-                            <Label text="Responsable" style="-fx-text-fill:#1f2b59; -fx-font-weight:bold;" />
-                            <Label fx:id="responsableLabel" text="-" />
+
+                    <!-- MAIN CONTENT -->
+                    <center>
+                        <VBox spacing="20"
+                              style="-fx-padding:25; -fx-background-color:#F6F8FF;">
+
+                            <children>
+
+                                <!-- HEADER DÉTAILS -->
+                                <HBox alignment="CENTER_LEFT">
+                                    <children>
+
+                                        <Label text="Détails de la tâche"
+                                               style="-fx-text-fill:#1f2b59;">
+                                            <font><Font size="22"/></font>
+                                        </Label>
+
+                                        <Region HBox.hgrow="ALWAYS"/>
+
+                                        <Button fx:id="fermerBtn"
+                                                text="Fermer"
+                                                onAction="#closeWindow"
+                                                style="-fx-background-color:#5A6FA8;
+                                                       -fx-text-fill:white;
+                                                       -fx-background-radius:8;
+                                                       -fx-padding:6 16;"/>
+
+                                    </children>
+                                </HBox>
+
+
+                                <!-- CARD DETAILS -->
+                                <VBox maxWidth="750"
+                                      spacing="18"
+                                      style="-fx-background-color:white;
+                                             -fx-padding:18;
+                                             -fx-background-radius:12;
+                                             -fx-effect:dropshadow(gaussian, rgba(0,0,0,0.12),12,0,0,2);">
+
+                                    <!-- Nom -->
+                                    <VBox spacing="6">
+                                        <Label text="Nom de la tâche"
+                                               style="-fx-text-fill:#1f2b59; -fx-font-weight:bold;"/>
+                                        <Label fx:id="nameLabel"
+                                               text="-"
+                                               style="-fx-text-fill:#1f2b59;"/>
+                                    </VBox>
+
+                                    <!-- Projet -->
+                                    <VBox spacing="6">
+                                        <Label text="Projet"
+                                               style="-fx-text-fill:#1f2b59; -fx-font-weight:bold;"/>
+                                        <Label fx:id="projectLabel"
+                                               text="-"
+                                               style="-fx-text-fill:#1f2b59;"/>
+                                    </VBox>
+
+                                    <!-- Description -->
+                                    <VBox spacing="6">
+                                        <Label text="Description"
+                                               style="-fx-text-fill:#1f2b59; -fx-font-weight:bold;"/>
+                                        <TextArea fx:id="descriptionArea"
+                                                  wrapText="true"
+                                                  editable="false"
+                                                  prefRowCount="5"/>
+                                    </VBox>
+
+                                    <!-- INFOS ROW -->
+                                    <HBox spacing="20">
+
+                                        <VBox spacing="6" HBox.hgrow="ALWAYS">
+                                            <Label text="Date d'échéance"
+                                                   style="-fx-text-fill:#1f2b59; -fx-font-weight:bold;"/>
+                                            <Label fx:id="dateLabel" text="-"/>
+                                        </VBox>
+
+                                        <VBox spacing="6" HBox.hgrow="ALWAYS">
+                                            <Label text="Responsable"
+                                                   style="-fx-text-fill:#1f2b59; -fx-font-weight:bold;"/>
+                                            <Label fx:id="responsableLabel" text="-"/>
+                                        </VBox>
+
+                                        <VBox spacing="6" HBox.hgrow="ALWAYS">
+                                            <Label text="Statut"
+                                                   style="-fx-text-fill:#1f2b59; -fx-font-weight:bold;"/>
+                                            <Label fx:id="statutLabel" text="-"/>
+                                        </VBox>
+
+                                        <VBox spacing="6" HBox.hgrow="ALWAYS">
+                                            <Label text="Priorité"
+                                                   style="-fx-text-fill:#1f2b59; -fx-font-weight:bold;"/>
+                                            <Label fx:id="prioriteLabel" text="-"/>
+                                        </VBox>
+
+                                    </HBox>
+
+                                </VBox>
+
+                            </children>
                         </VBox>
+                    </center>
 
-                        <VBox spacing="6" HBox.hgrow="ALWAYS">
-                            <Label text="Statut" style="-fx-text-fill:#1f2b59; -fx-font-weight:bold;" />
-                            <Label fx:id="statutLabel" text="-" />
-                        </VBox>
+                </BorderPane>
 
-                        <VBox spacing="6" HBox.hgrow="ALWAYS">
-                            <Label text="Priorité" style="-fx-text-fill:#1f2b59; -fx-font-weight:bold;" />
-                            <Label fx:id="prioriteLabel" text="-" />
-                        </VBox>
-                    </HBox>
+            </content>
 
-                </VBox>
-            </children>
-        </VBox>
-    </center>
+        </ScrollPane>
 
-</BorderPane>
+    </children>
+
+</VBox>

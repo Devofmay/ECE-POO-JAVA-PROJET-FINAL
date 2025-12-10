@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
@@ -7,7 +8,7 @@
 
 <VBox xmlns="http://javafx.com/javafx/17.0.12"
       xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="fr.ece.javaprojetfinal.InsideCollabocontroller"
+      fx:controller="fr.ece.javaprojetfinal.HomeProjetAdmincontroller"
       spacing="0">
 
     <!-- ESPACE POUR BOUTONS WINDOWS -->
@@ -17,7 +18,7 @@
 
     <children>
 
-        <!-- SCROLLPANE GLOBAL RESPONSIVE -->
+        <!-- SCROLLPANE POUR RESPONSIVITÉ -->
         <ScrollPane fitToWidth="true"
                     fitToHeight="true"
                     vbarPolicy="AS_NEEDED"
@@ -27,7 +28,7 @@
 
             <content>
 
-                <!-- PAGE CENTRÉE LARGEUR 1200px -->
+                <!-- PAGE LARGEUR 1200px -->
                 <BorderPane prefWidth="1200" minWidth="1200" maxWidth="1300">
 
                     <!-- HEADER -->
@@ -38,20 +39,19 @@
                                      -fx-background-color: linear-gradient(to right, #4b6cb7, #182848);">
 
                             <children>
-
                                 <Label text="Project Manager" style="-fx-text-fill:white;">
                                     <font><Font size="20"/></font>
                                 </Label>
 
                                 <Region HBox.hgrow="ALWAYS"/>
 
-                                <Button fx:id="ajoutertache"
-                                        text="Ajouter un collaborateur"
-                                        style="-fx-background-color:#4A9D5F;
+                                <Button fx:id="logoutbtn"
+                                        text="Déconnexion"
+                                        style="-fx-background-color: transparent;
                                                -fx-text-fill:white;
-                                               -fx-background-radius:6;
-                                               -fx-padding:6 12;
-                                               -fx-font-weight:bold;"/>
+                                               -fx-border-color: rgba(255,255,255,0.2);
+                                               -fx-border-radius:6;
+                                               -fx-padding:6 12;"/>
                             </children>
 
                         </HBox>
@@ -74,7 +74,7 @@
                                         <Circle radius="40"
                                                 style="-fx-fill: linear-gradient(#ffffff44,#ffffff11);
                                                        -fx-effect:dropshadow(gaussian, rgba(0,0,0,0.35),8,0,0,2);"/>
-                                        <Label fx:id="usernameField"
+                                        <Label fx:id="usernameSpot"
                                                text="Utilisateur"
                                                style="-fx-text-fill:white; -fx-font-weight:bold;"/>
                                     </children>
@@ -82,98 +82,98 @@
 
 
                                 <!-- MENU -->
-                                <VBox alignment="TOP_CENTER" spacing="10">
+                                <VBox alignment="TOP_CENTER" spacing="8" style="-fx-padding:6;">
 
-                                    <Button fx:id="projetsbtn"
-                                            text="Projets" prefWidth="180"
+                                    <Button fx:id="projetsbtn" text="Projets" prefWidth="180"
                                             style="-fx-background-color: transparent;
                                                    -fx-text-fill:white;
-                                                   -fx-border-color: rgba(255,255,255,0.25);
+                                                   -fx-border-color: rgba(255,255,255,0.12);
                                                    -fx-border-radius:8;
-                                                   -fx-padding:10 12;"/>
+                                                   -fx-padding:8 10;"/>
 
-                                    <Button fx:id="tachesbtn"
-                                            text="Tâches" prefWidth="180"
+                                    <Button fx:id="tachesbtn" text="Tâches" prefWidth="180"
                                             style="-fx-background-color: transparent;
                                                    -fx-text-fill:white;
-                                                   -fx-border-color: rgba(255,255,255,0.25);
+                                                   -fx-border-color: rgba(255,255,255,0.12);
                                                    -fx-border-radius:8;
-                                                   -fx-padding:10 12;"/>
+                                                   -fx-padding:8 10;"/>
 
-                                    <Button fx:id="utilisateursbtn"
-                                            text="Collaborateurs" prefWidth="180"
-                                            style="-fx-background-color: rgba(255,255,255,0.15);
-                                                   -fx-text-fill:white;
-                                                   -fx-background-radius:8;
-                                                   -fx-padding:10 12;"/>
-
-                                    <Button fx:id="calendrierbtn"
-                                            text="Planning" prefWidth="180"
+                                    <Button fx:id="calendrierbtn" text="Calendrier" prefWidth="180"
                                             style="-fx-background-color: transparent;
                                                    -fx-text-fill:white;
-                                                   -fx-border-color: rgba(255,255,255,0.25);
+                                                   -fx-border-color: rgba(255,255,255,0.12);
                                                    -fx-border-radius:8;
-                                                   -fx-padding:10 12;"/>
+                                                   -fx-padding:8 10;"/>
 
                                 </VBox>
 
                                 <Region VBox.vgrow="ALWAYS"/>
 
-                                <Button fx:id="logoutbtn" text="Déconnexion" prefWidth="180"
-                                        style="-fx-background-color:#C74444;
+                                <Button fx:id="parametresbtn" text="Paramètres" prefWidth="180"
+                                        style="-fx-background-radius:8;
+                                               -fx-background-color: rgba(255,255,255,0.06);
                                                -fx-text-fill:white;
-                                               -fx-background-radius:8;
-                                               -fx-padding:10 12;"/>
+                                               -fx-padding:8 10;"/>
 
                             </children>
-
                         </VBox>
                     </left>
 
 
                     <!-- MAIN CONTENT -->
                     <center>
-                        <VBox spacing="20"
-                              style="-fx-padding:25;
-                                     -fx-background-color:#F6F8FF;">
+                        <VBox spacing="18" style="-fx-padding:20; -fx-background-color:#F6F8FF;">
 
                             <children>
 
-                                <Label text="Ensemble des collaborateurs"
-                                       style="-fx-text-fill:#1f2b59;">
-                                    <font><Font size="18"/></font>
-                                </Label>
+                                <!-- TITLE BAR -->
+                                <HBox alignment="CENTER_LEFT" spacing="10">
+                                    <children>
+
+                                        <Label text="Projets assignés"
+                                               style="-fx-text-fill:#1f2b59;">
+                                            <font><Font size="18"/></font>
+                                        </Label>
+
+                                        <Region HBox.hgrow="ALWAYS"/>
+
+                                        <TextField fx:id="searchField"
+                                                   promptText="Rechercher un projet..."
+                                                   style="-fx-pref-width:320;
+                                                          -fx-background-radius:8;
+                                                          -fx-padding:8;"/>
+                                    </children>
+                                </HBox>
 
 
-                                <TableView fx:id="tasksTable"
-                                           VBox.vgrow="ALWAYS"
+                                <!-- TABLEAU DES PROJETS -->
+                                <TableView fx:id="projectsTable"
+                                           prefHeight="450"
                                            style="-fx-background-color:white;
                                                   -fx-background-radius:8;
                                                   -fx-border-radius:8;">
 
                                     <columns>
 
-                                        <TableColumn fx:id="taskNameColumn"
-                                                     text="Nom"
-                                                     prefWidth="200"/>
+                                        <TableColumn fx:id="nameCol" text="Nom" prefWidth="160"/>
 
-                                        <TableColumn fx:id="creationDateColumn"
-                                                     text="Adresse"
-                                                     prefWidth="250"/>
+                                        <TableColumn fx:id="descCol" text="Description" prefWidth="260"/>
 
-                                        <TableColumn fx:id="dueDateColumn"
-                                                     text="Rôle"
-                                                     prefWidth="180"/>
+                                        <!-- 🔥 Colonnes supplémentaires demandées -->
 
-                                        <TableColumn fx:id="ownerColumn"
-                                                     text="Mot de passe"
-                                                     prefWidth="200"/>
+                                        <TableColumn fx:id="creationDateCol" text="Date de création" prefWidth="140"/>
 
-                                        <TableColumn fx:id="editColumn"
-                                                     text="Modifier"
-                                                     prefWidth="160"/>
+                                        <TableColumn fx:id="dueDateCol" text="Date d'échéance" prefWidth="140"/>
+
+                                        <TableColumn fx:id="statusCol" text="Statut" prefWidth="120"/>
+
+                                        <TableColumn fx:id="responsableCol" text="Responsable" prefWidth="140"/>
+
+                                        <!-- ACTIONS -->
+                                        <TableColumn fx:id="actionsCol" text="Actions" prefWidth="120"/>
 
                                     </columns>
+
                                 </TableView>
 
                             </children>
@@ -184,7 +184,6 @@
                 </BorderPane>
 
             </content>
-
         </ScrollPane>
 
     </children>

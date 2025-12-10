@@ -21,6 +21,8 @@ public class LoginApplication extends Application {
             Scene scene = new Scene(fxmlLoader.load());
             primaryStage.setTitle("Login");
             primaryStage.setScene(scene);
+
+            primaryStage.setMaximized(true);
             primaryStage.show();
         }
 }

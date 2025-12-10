@@ -1,33 +1,147 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
+<?import javafx.scene.shape.*?>
 
-<AnchorPane prefHeight="440.0" prefWidth="520.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.ece.javaprojetfinal.CommonController">
-   <children>
-      <AnchorPane prefHeight="90.0" prefWidth="520.0" style="-fx-background-color: #1C399C;">
-         <children>
-            <Label alignment="CENTER" layoutX="142.0" layoutY="8.0" prefHeight="67.0" prefWidth="265.0" text="Gestionnaire de taches " textFill="#efe8e8">
-               <font>
-                  <Font size="24.0" />
-               </font>
+<StackPane xmlns="http://javafx.com/javafx/17.0.12"
+           xmlns:fx="http://javafx.com/fxml/1"
+           prefWidth="1200" prefHeight="700"
+           fx:controller="fr.ece.javaprojetfinal.CommonController"
+           style="-fx-background-color: linear-gradient(to bottom right, #1a2a6c, #1C399C, #2d5bb7);">
+
+    <children>
+        <!-- Cercles décoratifs en arrière-plan -->
+        <Circle radius="200" fill="#ffffff" opacity="0.03"
+                translateX="-400" translateY="-250"/>
+        <Circle radius="150" fill="#ffffff" opacity="0.05"
+                translateX="450" translateY="280"/>
+        <Circle radius="100" fill="#ffffff" opacity="0.04"
+                translateX="-500" translateY="300"/>
+
+        <!-- Contenu principal -->
+        <VBox alignment="CENTER" spacing="25" maxWidth="600">
+
+            <!-- Logo et titre -->
+            <VBox alignment="CENTER" spacing="10">
+                <!-- Icône stylisée -->
+                <StackPane>
+                    <Circle radius="35" fill="white" opacity="0.15"/>
+                    <Circle radius="32" fill="white" opacity="0.2"/>
+                    <VBox alignment="CENTER" spacing="2">
+                        <Rectangle width="22" height="3" fill="white" arcWidth="3" arcHeight="3"/>
+                        <Rectangle width="22" height="3" fill="white" arcWidth="3" arcHeight="3"/>
+                        <Rectangle width="22" height="3" fill="white" arcWidth="3" arcHeight="3"/>
+                    </VBox>
+                </StackPane>
+
+                <Label text="Project Manager" textFill="white">
+                    <font>
+                        <Font name="System Bold" size="38"/>
+                    </font>
+                </Label>
+
+                <Label text="Gestionnaire de Tâches" textFill="white" opacity="0.9">
+                    <font>
+                        <Font size="16"/>
+                    </font>
+                </Label>
+            </VBox>
+
+            <!-- Message de bienvenue -->
+            <Label text="Bienvenue ! Connectez-vous à votre compte"
+                   textFill="white"
+                   opacity="0.95"
+                   textAlignment="CENTER"
+                   wrapText="true">
+                <font><Font size="15"/></font>
             </Label>
-         </children></AnchorPane>
-      <Label alignment="CENTER" layoutX="107.0" layoutY="90.0" prefHeight="58.0" prefWidth="365.0" text="Bienvenue. Entrez vos identifiants pour vous connecter " textAlignment="JUSTIFY" textFill="#1f15b5">
-         <font>
-            <Font size="13.0" />
-         </font>
-      </Label>
-      <AnchorPane layoutX="47.0" layoutY="146.0" prefHeight="240.0" prefWidth="426.0" style="-fx-background-color: #1C399C; -fx-border-radius: 20;">
-         <children>
-            <TextField fx:id="usernameField" layoutX="33.0" layoutY="72.0" prefHeight="25.0" prefWidth="174.0" promptText="Entrez votre nom d'utilisateur" />
-            <Label layoutX="33.0" layoutY="38.0" prefHeight="17.0" prefWidth="149.0" text="Nom d'utilisateur" textFill="#f2ecec" />
-            <Label layoutX="33.0" layoutY="119.0" prefHeight="17.0" prefWidth="149.0" text="Mot de passe" textFill="#fdf9f9" />
-            <Button layoutX="262.0" layoutY="187.0" mnemonicParsing="false" onAction="#login" prefHeight="25.0" prefWidth="149.0" text="Connexion" textFill="#2531b5" />
-            <PasswordField fx:id="passwordField" layoutX="33.0" layoutY="146.0" prefHeight="25.0" prefWidth="174.0" promptText="Entrez votre mot de passe" />
-            <Label fx:id="errorMsg" layoutX="33.0" layoutY="191.0" textFill="RED" />
-         </children>
-      </AnchorPane>
-   </children>
-</AnchorPane>
+
+            <!-- Carte de connexion -->
+            <VBox spacing="0" maxWidth="500" prefWidth="500"
+                  style="-fx-background-color: rgba(255, 255, 255, 0.98);
+                         -fx-background-radius: 18;
+                         -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.25), 25, 0, 0, 8);">
+
+                <!-- Bande décorative supérieure -->
+                <HBox spacing="0" alignment="CENTER" prefHeight="6"
+                      style="-fx-background-color: linear-gradient(to right, #4A9D5F, #1C399C);
+                             -fx-background-radius: 18 18 0 0;"/>
+
+                <!-- Contenu du formulaire -->
+                <VBox spacing="22" alignment="CENTER">
+                    <padding>
+                        <Insets top="32" bottom="32" left="45" right="45"/>
+                    </padding>
+
+                    <!-- Champ Nom d'utilisateur -->
+                    <VBox spacing="10">
+                        <Label text="Nom d'utilisateur" textFill="#1C399C">
+                            <font><Font name="System Bold" size="14"/></font>
+                        </Label>
+                        <TextField fx:id="usernameField"
+                                   promptText="Entrez votre nom d'utilisateur"
+                                   prefHeight="45"
+                                   style="-fx-font-size: 14px;
+                                          -fx-background-radius: 10;
+                                          -fx-border-color: #e0e6ed;
+                                          -fx-border-radius: 10;
+                                          -fx-border-width: 2;
+                                          -fx-background-color: #f8f9fc;
+                                          -fx-padding: 10;
+                                          -fx-text-fill: #1C399C;"/>
+                    </VBox>
+
+                    <!-- Champ Mot de passe -->
+                    <VBox spacing="10">
+                        <Label text="Mot de passe" textFill="#1C399C">
+                            <font><Font name="System Bold" size="14"/></font>
+                        </Label>
+                        <PasswordField fx:id="passwordField"
+                                       promptText="Entrez votre mot de passe"
+                                       prefHeight="45"
+                                       style="-fx-font-size: 14px;
+                                              -fx-background-radius: 10;
+                                              -fx-border-color: #e0e6ed;
+                                              -fx-border-radius: 10;
+                                              -fx-border-width: 2;
+                                              -fx-background-color: #f8f9fc;
+                                              -fx-padding: 10;
+                                              -fx-text-fill: #1C399C;"/>
+                    </VBox>
+
+                    <!-- Message d'erreur -->
+                    <Label fx:id="errorMsg"
+                           textFill="#C74444"
+                           wrapText="true"
+                           alignment="CENTER"
+                           prefHeight="20">
+                        <font><Font size="13"/></font>
+                    </Label>
+
+                    <!-- Bouton de connexion -->
+                    <Button text="Se connecter"
+                            onAction="#login"
+                            prefHeight="48"
+                            prefWidth="410"
+                            style="-fx-background-color: linear-gradient(to right, #4A9D5F, #3d8a50);
+                                   -fx-text-fill: white;
+                                   -fx-font-size: 16px;
+                                   -fx-font-weight: bold;
+                                   -fx-background-radius: 10;
+                                   -fx-cursor: hand;
+                                   -fx-effect: dropshadow(gaussian, rgba(74, 157, 95, 0.4), 12, 0, 0, 4);"/>
+                </VBox>
+            </VBox>
+
+            <!-- Pied de page -->
+            <Label text="© 2024 Project Manager"
+                   textFill="white"
+                   opacity="0.7">
+                <font><Font size="11"/></font>
+            </Label>
+        </VBox>
+    </children>
+</StackPane>
