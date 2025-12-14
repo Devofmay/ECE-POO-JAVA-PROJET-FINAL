@@ -4,6 +4,7 @@ module JavaProjetFinal {
     requires java.sql;
     requires javafx.graphics;
     requires com.calendarfx.view;
+    requires jbcrypt;
 
     opens fr.ece.javaprojetfinal to javafx.fxml;
 

@@ -44,7 +44,7 @@ public class CommonController {
                 if (rs.next()) {
                     String storedPassword = rs.getString("MDP");
                     int storedRole = rs.getInt("Role");
-                    if (storedPassword != null && storedPassword.equals(password)) {
+                    if (storedPassword != null && PasswordUtils.verifyPassword(password, storedPassword)) {
                         errorMsg.setText("Login successful");
                         int userid = rs.getInt("ID");
                         if (storedRole == 1) {

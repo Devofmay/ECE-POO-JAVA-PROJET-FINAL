@@ -45,7 +45,7 @@ public class AjouterUsercontroller {
     private void saveUser() {
         String nom = nomField.getText();
         String adresse = adresseField.getText();
-        String password = passwordField.getText();
+        String password = PasswordUtils.hashPassword(passwordField.getText());
         String role = roleCombo.getSelectionModel().getSelectedItem();
 
         if (nom == null || nom.trim().isEmpty()) {

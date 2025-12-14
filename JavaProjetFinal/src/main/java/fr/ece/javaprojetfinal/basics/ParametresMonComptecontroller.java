@@ -1,5 +1,6 @@
 package fr.ece.javaprojetfinal.basics;
 
+import fr.ece.javaprojetfinal.PasswordUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -94,7 +95,7 @@ public class ParametresMonComptecontroller implements Initializable {
                 showAlert(Alert.AlertType.WARNING, "Validation", "Les mots de passe ne correspondent pas.");
                 return;
             }
-            newMdp = p1;
+            newMdp = PasswordUtils.hashPassword(p1);
         } else {
             newMdp = originalUser.mdp;
         }

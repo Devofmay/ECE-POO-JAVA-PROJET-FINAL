@@ -10,6 +10,8 @@ import javafx.stage.Stage;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 
+import static fr.ece.javaprojetfinal.PasswordUtils.hashPassword;
+
 public class  ModifierUsercontroller {
     @FXML
     private TextField nomField;
@@ -64,7 +66,7 @@ public class  ModifierUsercontroller {
         // update model from fields
         if (nomField != null) user.setNom(nomField.getText());
         if (adresseField != null) user.setAdresse(adresseField.getText());
-        if (passwordField != null) user.setMotDePasse(passwordField.getText());
+        if (passwordField != null) user.setMotDePasse(hashPassword(passwordField.getText()));
         if (roleCombo != null) user.setRole(roleCombo.getSelectionModel().getSelectedItem());
 
         try {
