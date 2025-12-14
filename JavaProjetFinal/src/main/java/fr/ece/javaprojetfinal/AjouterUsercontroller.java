@@ -3,43 +3,40 @@ package fr.ece.javaprojetfinal;
 import fr.ece.javaprojetfinal.basics.Utilisateur;
 import fr.ece.javaprojetfinal.basics.UtilisateurDAO;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.sql.SQLException;
 
-public class AjouterUsercontroller {
+public class AjouterUsercontroller extends BaseController {
 
-    @FXML
-    private TextField nomField;
-    @FXML
-    private TextField adresseField;
-    @FXML
-    private TextField passwordField;
-    @FXML
-    private ComboBox<String> roleCombo;
-    @FXML
-    private Button annulerBtn;
-    @FXML
-    private Button enregistrerBtn;
-    @FXML
-    private Button retourBtn;
+    @FXML private TextField nomField;
+    @FXML private TextField adresseField;
+    @FXML private TextField passwordField;
+    @FXML private ComboBox<String> roleCombo;
+    @FXML private Button annulerBtn;
+    @FXML private Button enregistrerBtn;
+    @FXML private Button retourBtn;
 
     private final UtilisateurDAO dao = new UtilisateurDAO();
 
     @FXML
     private void initialize() {
+        initializeSession();
+
         if (roleCombo != null) {
             roleCombo.getItems().setAll("Admin", "User");
             roleCombo.getSelectionModel().selectFirst();
         }
+
         if (annulerBtn != null) annulerBtn.setOnAction(e -> closeWindow());
         if (retourBtn != null) retourBtn.setOnAction(e -> closeWindow());
         if (enregistrerBtn != null) enregistrerBtn.setOnAction(e -> saveUser());
+    }
+
+    @Override
+    protected boolean checkPagePermissions() {
+        return getSession().isAdmin();
     }
 
     private void saveUser() {
@@ -52,6 +49,7 @@ public class AjouterUsercontroller {
             showError("Le nom ne peut pas être vide.");
             return;
         }
+
         if (password == null || password.trim().isEmpty()) {
             showError("Le mot de passe ne peut pas être vide.");
             return;
@@ -61,12 +59,15 @@ public class AjouterUsercontroller {
 
         try {
             dao.insert(newUser);
-            Alert success = new Alert(Alert.AlertType.INFORMATION, "Collaborateur ajouté avec succès.", ButtonType.OK);
+            Alert success = new Alert(
+                    Alert.AlertType.INFORMATION,
+                    "Collaborateur ajouté avec succès.",
+                    ButtonType.OK
+            );
             success.showAndWait();
             closeWindow();
         } catch (SQLException ex) {
-            ex.printStackTrace();
-            showError("Erreur lors de l'ajout : " + ex.getMessage());
+            showError("Erreur lors de l'ajout.");
         }
     }
 
@@ -77,11 +78,13 @@ public class AjouterUsercontroller {
 
     private void closeWindow() {
         Stage stage = null;
+
         if (enregistrerBtn != null && enregistrerBtn.getScene() != null) {
             stage = (Stage) enregistrerBtn.getScene().getWindow();
         } else if (annulerBtn != null && annulerBtn.getScene() != null) {
             stage = (Stage) annulerBtn.getScene().getWindow();
         }
+
         if (stage != null) stage.close();
     }
 }

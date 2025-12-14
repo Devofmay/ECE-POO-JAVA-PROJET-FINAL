@@ -1,4 +1,4 @@
 package fr.ece.javaprojetfinal;
 
-public class ViewProjectUsercontroller {
+public class ViewProjectUsercontroller extends BaseController{
 }

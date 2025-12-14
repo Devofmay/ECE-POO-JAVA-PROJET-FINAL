@@ -3,87 +3,117 @@ package fr.ece.javaprojetfinal;
 import fr.ece.javaprojetfinal.basics.Utilisateur;
 import fr.ece.javaprojetfinal.basics.UtilisateurDAO;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
 
-public class  ModifierUsercontroller {
-    @FXML
-    private TextField nomField;
-    @FXML
-    private TextField adresseField;
-    @FXML
-    private TextField passwordField;
-    @FXML
-    private ComboBox<String> roleCombo;
-    @FXML
-    private Button annulerBtn;
-    @FXML
-    private Button enregistrerBtn;
-    @FXML
-    private Button retourBtn;
+import java.sql.SQLException;
+
+public class ModifierUsercontroller extends BaseController {
+
+    @FXML private TextField nomField;
+    @FXML private TextField adresseField;
+    @FXML private PasswordField passwordField;
+    @FXML private ComboBox<String> roleCombo;
+    @FXML private Button annulerBtn;
+    @FXML private Button enregistrerBtn;
+    @FXML private Button retourBtn;
 
     private Utilisateur user;
     private final UtilisateurDAO dao = new UtilisateurDAO();
 
+    // ======================
+    // INITIALISATION
+    // ======================
     @FXML
     private void initialize() {
-        if (roleCombo != null) {
-            roleCombo.getItems().setAll("Admin", "User");
+        initializeSession();
+
+        if (!checkPagePermissions()) {
+            showErrorAndExit("Accès refusé.");
+            return;
         }
-        // wire cancel/return to close window
-        if (annulerBtn != null) annulerBtn.setOnAction(e -> closeWindow());
-        if (retourBtn != null) retourBtn.setOnAction(e -> closeWindow());
-        if (enregistrerBtn != null) enregistrerBtn.setOnAction(e -> saveAndClose());
+
+        roleCombo.getItems().setAll("Admin", "User");
+
+        annulerBtn.setOnAction(e -> closeWindow());
+        retourBtn.setOnAction(e -> closeWindow());
+        enregistrerBtn.setOnAction(e -> saveAndClose());
     }
 
+    // ======================
+    // SÉCURITÉ
+    // ======================
+    @Override
+    protected boolean checkPagePermissions() {
+        return getSession().isAdmin();
+    }
+
+    // ======================
+    // DATA BINDING
+    // ======================
     public void setUser(Utilisateur u) {
         this.user = u;
         if (u == null) return;
-        if (nomField != null) nomField.setText(u.getNom());
-        if (adresseField != null) adresseField.setText(u.getAdresse());
-        if (passwordField != null) passwordField.setText(u.getMotDePasse());
-        if (roleCombo != null) {
-            String role = u.getRole() == null ? "" : u.getRole();
-            if (!roleCombo.getItems().contains(role)) {
-                // ensure selection even if DB uses other values
-                roleCombo.getItems().add(role);
-            }
-            roleCombo.getSelectionModel().select(role);
-        }
+
+        nomField.setText(u.getNom());
+        adresseField.setText(u.getAdresse());
+        roleCombo.getSelectionModel().select(u.getRole());
+
+        // jamais afficher un mot de passe
+        passwordField.clear();
     }
 
+    // ======================
+    // SAVE
+    // ======================
     private void saveAndClose() {
         if (user == null) {
             closeWindow();
             return;
         }
-        // update model from fields
-        if (nomField != null) user.setNom(nomField.getText());
-        if (adresseField != null) user.setAdresse(adresseField.getText());
-        if (passwordField != null) user.setMotDePasse(passwordField.getText());
-        if (roleCombo != null) user.setRole(roleCombo.getSelectionModel().getSelectedItem());
+
+        if (nomField.getText() == null || nomField.getText().isBlank()) {
+            showError("Le nom est obligatoire.");
+            return;
+        }
+
+        user.setNom(nomField.getText());
+        user.setAdresse(adresseField.getText());
+        user.setRole(roleCombo.getValue());
+
+        // modifier le mot de passe uniquement s'il est saisi
+        if (!passwordField.getText().isBlank()) {
+            user.setMotDePasse(passwordField.getText());
+        }
 
         try {
             dao.update(user);
+
+            Alert ok = new Alert(Alert.AlertType.INFORMATION);
+            ok.setHeaderText(null);
+            ok.setContentText("Utilisateur modifié avec succès.");
+            ok.showAndWait();
+
             closeWindow();
-        } catch (Exception ex) {
+
+        } catch (SQLException ex) {
             ex.printStackTrace();
-            Alert err = new Alert(Alert.AlertType.ERROR, "Failed to save user: " + ex.getMessage(), ButtonType.OK);
-            err.showAndWait();
+            showError("Erreur lors de l'enregistrement.");
         }
     }
 
+    // ======================
+    // UTILS
+    // ======================
     private void closeWindow() {
-        Stage s = null;
-        if (enregistrerBtn != null && enregistrerBtn.getScene() != null) {
-            s = (Stage) enregistrerBtn.getScene().getWindow();
-        } else if (annulerBtn != null && annulerBtn.getScene() != null) {
-            s = (Stage) annulerBtn.getScene().getWindow();
-        }
-        if (s != null) s.close();
+        Stage stage = (Stage) enregistrerBtn.getScene().getWindow();
+        stage.close();
+    }
+    private void showError(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Erreur");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }

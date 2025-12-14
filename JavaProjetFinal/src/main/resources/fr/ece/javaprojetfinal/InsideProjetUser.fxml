@@ -8,17 +8,14 @@
 
 <VBox xmlns="http://javafx.com/javafx/17.0.12"
       xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="fr.ece.javaprojetfinal.InsideProjetAdminController"
+      fx:controller="fr.ece.javaprojetfinal.InsideProjetUsercontroller"
       spacing="0">
 
-    <!-- ESPACE POUR LES BOUTONS WINDOWS -->
     <padding>
         <Insets top="10"/>
     </padding>
 
     <children>
-
-        <!-- SCROLLPANE RESPONSIVE -->
         <ScrollPane fitToHeight="true"
                     fitToWidth="true"
                     hbarPolicy="AS_NEEDED"
@@ -27,8 +24,6 @@
                     VBox.vgrow="ALWAYS">
 
             <content>
-
-                <!-- PAGE 1300px LARGEUR FIXE (ALIGNÉE AVEC TON MODÈLE VALIDÉ) -->
                 <BorderPane prefWidth="1250"
                             minWidth="1250"
                             maxWidth="1300"
@@ -36,12 +31,11 @@
 
                     <!-- HEADER -->
                     <top>
-                        <HBox alignment="CENTER"
+                        <HBox alignment="CENTER_LEFT"
                               spacing="12"
                               style="-fx-padding:12; -fx-background-color: linear-gradient(to right, #4b6cb7, #182848);">
 
                             <children>
-
                                 <Label text="Project Manager" style="-fx-text-fill:white;">
                                     <font><Font size="20"/></font>
                                 </Label>
@@ -58,6 +52,11 @@
 
                                 <Region HBox.hgrow="ALWAYS"/>
 
+                                <Button fx:id="logoutBtn" text="Déconnexion"
+                                        style="-fx-background-color: transparent; -fx-text-fill: white;
+                                               -fx-border-color: rgba(255,255,255,0.3);
+                                               -fx-border-radius:6; -fx-background-radius:6;
+                                               -fx-padding:6 14;" />
                             </children>
                         </HBox>
                     </top>
@@ -71,27 +70,23 @@
                                      -fx-pref-width:220;">
 
                             <children>
-
                                 <StackPane alignment="CENTER" prefHeight="120">
                                     <children>
                                         <Circle radius="40"
                                                 style="-fx-fill: linear-gradient(#ffffff44, #ffffff11);
                                                        -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.35),8,0,0,2);"/>
-                                        <Label fx:id="usernameField"
+                                        <Label fx:id="usernameSpot"
                                                style="-fx-text-fill: white; -fx-font-weight: bold;"
                                                text="Utilisateur"/>
                                     </children>
                                 </StackPane>
 
-                                <!-- NAVIGATION -->
                                 <VBox alignment="TOP_CENTER" spacing="8" style="-fx-padding:6;">
                                     <children>
-
                                         <Button fx:id="projetsbtn" text="Projets" prefWidth="180"
-                                                style="-fx-background-color: transparent;
+                                                style="-fx-background-color: rgba(255,255,255,0.15);
                                                        -fx-text-fill: white;
-                                                       -fx-border-color: rgba(255,255,255,0.12);
-                                                       -fx-border-radius:8;
+                                                       -fx-background-radius:8;
                                                        -fx-padding:8 10;"/>
 
                                         <Button fx:id="tachesbtn" text="Tâches" prefWidth="180"
@@ -107,20 +102,16 @@
                                                        -fx-border-color: rgba(255,255,255,0.12);
                                                        -fx-border-radius:8;
                                                        -fx-padding:8 10;"/>
-
                                     </children>
                                 </VBox>
 
                                 <Region VBox.vgrow="ALWAYS"/>
 
-                                <Button fx:id="logoutbtn" text="Déconnexion" prefWidth="180"
-                                        style="-fx-background-color:#C74444;
-                                               -fx-text-fill:white;
-                                               -fx-background-radius:8;
-                                               -fx-padding:8 10;"/>
-
+                                <Button fx:id="parametresBtn" text="Paramètres" prefWidth="180"
+                                        style="-fx-background-color: rgba(255,255,255,0.18);
+                                               -fx-text-fill: white; -fx-background-radius:8;
+                                               -fx-padding:10 12;" />
                             </children>
-
                         </VBox>
                     </left>
 
@@ -130,13 +121,10 @@
                               style="-fx-padding:25; -fx-background-color:#F6F8FF;">
 
                             <children>
-
-                                <!-- TITRE -->
                                 <Label text="Tâches du projet" style="-fx-text-fill:#1f2b59;">
                                     <font><Font size="18"/></font>
                                 </Label>
 
-                                <!-- TABLE TÂCHES -->
                                 <TableView fx:id="tasksTable"
                                            prefHeight="300"
                                            style="-fx-background-color:white;
@@ -148,13 +136,12 @@
                                         <TableColumn fx:id="dueDateColumn" text="Date d'échéance" prefWidth="150"/>
                                         <TableColumn fx:id="ownerColumn" text="Responsable" prefWidth="170"/>
                                         <TableColumn fx:id="statusColumn" text="Statut" prefWidth="140"/>
+                                        <TableColumn fx:id="actionsColumn" text="Actions" prefWidth="180"/>
                                     </columns>
                                 </TableView>
 
-                                <!-- COLLABORATEURS -->
                                 <VBox spacing="10">
                                     <children>
-
                                         <Label text="Collaborateurs du projet"
                                                style="-fx-text-fill:#1f2b59;">
                                             <font><Font size="16"/></font>
@@ -165,21 +152,14 @@
                                                   style="-fx-background-color:white;
                                                          -fx-background-radius:8;
                                                          -fx-border-radius:8;"/>
-
                                     </children>
                                 </VBox>
-
                             </children>
-
                         </VBox>
                     </center>
 
                 </BorderPane>
-
             </content>
-
         </ScrollPane>
-
     </children>
-
 </VBox>

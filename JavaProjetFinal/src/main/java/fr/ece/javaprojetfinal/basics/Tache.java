@@ -56,6 +56,7 @@ public class Tache {
     public String getOwnerName() { return ownerName; }
     public void setOwnerName(String ownerName) { this.ownerName = ownerName; }
 
+
     public Date getDateEcheances() {
         if (this.dateEcheance == null) return null;
         return java.sql.Date.valueOf(this.dateEcheance);

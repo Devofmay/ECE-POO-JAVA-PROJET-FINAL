@@ -10,7 +10,7 @@ import javafx.scene.control.TextArea;
 
 import static java.util.function.Predicate.isEqual;
 
-public class ViewTacheUsercontroller {
+public class ViewTacheUsercontroller extends BaseController{
     @FXML
     private Label nameLabel;
     @FXML

@@ -32,6 +32,16 @@ public class ProjetDAO {
             }
         }
     }
+    public void deleteTaskById(int taskId) throws SQLException {
+        String sql = "DELETE FROM taches WHERE id = ?";
+        try (Connection conn = DBconnect.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, taskId);
+            stmt.executeUpdate();
+        }
+    }
+
+
 
     public List<Projet> findByResponsableId(int responsableId) throws SQLException {
         try (Connection conn = getConnection();

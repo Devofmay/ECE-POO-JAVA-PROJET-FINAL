@@ -1,18 +1,19 @@
+
 package fr.ece.javaprojetfinal;
 
-import fr.ece.javaprojetfinal.basics.Projet;
 import fr.ece.javaprojetfinal.basics.ProjetDAO;
 import fr.ece.javaprojetfinal.basics.Tache;
+import fr.ece.javaprojetfinal.basics.TacheDAO;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.sql.SQLException;
-import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.Map;
 
-public class ModifierTachecontroller {
+public class ModifierTachecontroller extends BaseController {
 
     @FXML private TextField nomProjetField;
     @FXML private TextArea descriptionArea;
@@ -27,62 +28,86 @@ public class ModifierTachecontroller {
     private Tache currentTache;
     private Scene previousScene;
     private InsideProjetAdminController parentController;
-    private Map<Integer, String> usersMap;
 
+    /** label -> userId */
+    private final Map<String, Integer> userLabelToId = new HashMap<>();
+
+    // =========================
+    // INITIALISATION
+    // =========================
     @FXML
     private void initialize() {
-        // Populate status and priority dropdowns
-        if (statutCombo1 != null) {
-            statutCombo1.getItems().addAll("À faire", "En cours", "Terminé");
-        }
-        if (statutCombo11 != null) {
-            statutCombo11.getItems().addAll("Basse", "Moyenne", "Haute");
+        initializeSession();
+
+        // Sécurité
+        if (!checkPagePermissions()) {
+            showErrorAndExit("Accès refusé.");
+            return;
         }
 
-        // Load users for responsable combo
+        // Statut
+        statutCombo1.getItems().setAll("À faire", "En cours", "Terminé");
+
+        // Priorité
+        statutCombo11.getItems().setAll("Basse", "Moyenne", "Haute");
+
+        // Chargement des utilisateurs
         try {
             ProjetDAO dao = new ProjetDAO();
-            usersMap = dao.findAllUsers();
-            if (responsableCombo != null) {
-                responsableCombo.getItems().addAll(usersMap.values());
+            Map<Integer, String> users = dao.findAllUsers();
+            for (Map.Entry<Integer, String> e : users.entrySet()) {
+                String label = e.getValue(); // nom affiché
+                userLabelToId.put(label, e.getKey());
             }
-        } catch (SQLException e) {
-            System.err.println("Failed to load users: " + e.getMessage());
+            responsableCombo.getItems().setAll(userLabelToId.keySet());
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            showError("Impossible de charger les utilisateurs.");
         }
 
-        // Button handlers
-        if (retourBtn != null) {
-            retourBtn.setOnAction(e -> returnToPrevious());
-        }
-        if (annulerBtn != null) {
-            annulerBtn.setOnAction(e -> returnToPrevious());
-        }
-        if (enregistrerBtn != null) {
-            enregistrerBtn.setOnAction(e -> saveTask());
+        // Handlers des boutons
+        retourBtn.setOnAction(e -> returnToPrevious());
+        annulerBtn.setOnAction(e -> resetForm());
+        enregistrerBtn.setOnAction(e -> saveTask());
+    }
+
+    /** Retour à la scène précédente ou fermeture de la fenêtre */
+    public void returnToPrevious() {
+        Stage stage = (Stage) enregistrerBtn.getScene().getWindow();
+        if (previousScene != null) {
+            stage.setScene(previousScene);
+        } else {
+            stage.close();
         }
     }
 
+    // =========================
+    // SÉCURITÉ
+    // =========================
+    @Override
+    protected boolean checkPagePermissions() {
+        return getSession().isAdmin();
+    }
+
+    // =========================
+    // DATA BINDING
+    // =========================
     public void setTask(Tache tache) {
         this.currentTache = tache;
         if (tache == null) return;
 
-        if (nomProjetField != null) {
-            nomProjetField.setText(tache.getNom());
+        nomProjetField.setText(tache.getNom());
+        descriptionArea.setText(tache.getDescription());
+        dateEcheancePicker.setValue(tache.getDateEcheance());
+
+        if (tache.getStatut() != null) {
+            statutCombo1.getSelectionModel().select(tache.getStatut());
         }
-        if (descriptionArea != null) {
-            descriptionArea.setText(tache.getDescription());
+        if (tache.getPriorite() != null) {
+            statutCombo11.getSelectionModel().select(tache.getPriorite());
         }
-        if (dateEcheancePicker != null && tache.getDateEcheance() != null) {
-            dateEcheancePicker.setValue(tache.getDateEcheance());
-        }
-        if (statutCombo1 != null && tache.getStatut() != null) {
-            statutCombo1.setValue(tache.getStatut());
-        }
-        if (statutCombo11 != null && tache.getPriorite() != null) {
-            statutCombo11.setValue(tache.getPriorite());
-        }
-        if (responsableCombo != null && tache.getOwnerName() != null) {
-            responsableCombo.setValue(tache.getOwnerName());
+        if (tache.getOwnerName() != null) {
+            responsableCombo.getSelectionModel().select(tache.getOwnerName());
         }
     }
 
@@ -94,37 +119,52 @@ public class ModifierTachecontroller {
         this.parentController = controller;
     }
 
+    // =========================
+    // ACTIONS
+    // =========================
+    private void resetForm() {
+        setTask(currentTache);
+    }
+
     private void saveTask() {
         if (currentTache == null) return;
 
-        // Update task fields
-        if (descriptionArea != null) {
-            currentTache.setDescription(descriptionArea.getText());
-        }
-        if (dateEcheancePicker != null) {
-            currentTache.setDateEcheance(dateEcheancePicker.getValue());
-        }
-        if (statutCombo1 != null) {
-            currentTache.setStatut(statutCombo1.getValue());
-        }
-        if (statutCombo11 != null) {
-            currentTache.setPriorite(statutCombo11.getValue());
+        currentTache.setDescription(descriptionArea.getText());
+        currentTache.setDateEcheance(dateEcheancePicker.getValue());
+        currentTache.setStatut(statutCombo1.getValue());
+        currentTache.setPriorite(statutCombo11.getValue());
+
+        String responsableLabel = responsableCombo.getValue();
+        if (responsableLabel != null) {
+            currentTache.setOwnerName(responsableLabel);
         }
 
-        // TODO: Save to database using TacheDAO
-        System.out.println("Task updated: " + currentTache.getNom());
+        try {
+            TacheDAO dao = new TacheDAO();
+            dao.update(currentTache); // à implémenter dans TacheDAO
 
-        // Refresh parent and return
-        if (parentController != null) {
-            // Trigger refresh of parent controller's task list
+            Alert ok = new Alert(Alert.AlertType.INFORMATION);
+            ok.setHeaderText(null);
+            ok.setContentText("Tâche mise à jour avec succès.");
+            ok.showAndWait();
+
+            if (parentController != null) {
+                parentController.setProject(parentController.getCurrentProjet());
+            }
+
+            returnToPrevious();
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            showError("Erreur lors de la mise à jour de la tâche.");
         }
-        returnToPrevious();
     }
 
-    private void returnToPrevious() {
-        if (previousScene != null && retourBtn != null) {
-            Stage stage = (Stage) retourBtn.getScene().getWindow();
-            stage.setScene(previousScene);
-        }
+    private void showError(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Erreur");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }
