@@ -62,7 +62,8 @@
                                         <Circle radius="40"
                                                 style="-fx-fill: linear-gradient(#ffffff44,#ffffff11);
                                                        -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.35),8,0,0,2);"/>
-                                        <Label text="Admin"
+                                        <Label fx:id="usernameSpot"
+                                                text="Admin"
                                                style="-fx-text-fill:white; -fx-font-weight:bold;"/>
                                     </children>
                                 </StackPane>
@@ -93,7 +94,8 @@
 
                                 <Region VBox.vgrow="ALWAYS"/>
 
-                                <Button text="Déconnexion" prefWidth="180"
+                                <Button fx:id="logoutBtn"
+                                        text="Déconnexion" prefWidth="180"
                                         style="-fx-background-color:#C74444;
                                                -fx-text-fill:white;
                                                -fx-background-radius:8;

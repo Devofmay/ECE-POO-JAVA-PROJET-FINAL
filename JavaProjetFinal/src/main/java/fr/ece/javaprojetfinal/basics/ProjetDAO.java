@@ -181,4 +181,44 @@ public class ProjetDAO {
             return ps.executeUpdate();
         }
     }
+
+    // Insert a new project in DB
+    public int insertNewProjet(Projet projet) throws SQLException {
+        String sql = "INSERT INTO projet (Nom, Description, Date_creation, Date_echeance, Responsable, Statut) " +
+                "VALUES (?, ?, ?, ?, ?, ?)";
+        try (Connection conn = getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, projet.getNom());
+            ps.setString(2, projet.getDescription());
+
+            Date dateCreation = projet.getDateCreation() != null
+                    ? new Date(projet.getDateCreation().getTime())
+                    : null;
+            Date dateEcheance = projet.getDateEcheance() != null
+                    ? new Date(projet.getDateEcheance().getTime())
+                    : null;
+
+            if (dateCreation != null) {
+                ps.setDate(3, dateCreation);
+            } else {
+                ps.setNull(3, java.sql.Types.DATE);
+            }
+
+            if (dateEcheance != null) {
+                ps.setDate(4, dateEcheance);
+            } else {
+                ps.setNull(4, java.sql.Types.DATE);
+            }
+
+            if (projet.getResponsable() != null) {
+                ps.setInt(5, projet.getResponsable());
+            } else {
+                ps.setNull(5, java.sql.Types.INTEGER);
+            }
+
+            ps.setString(6, projet.getStatut());
+
+            return ps.executeUpdate();
+        }
+    }
 }

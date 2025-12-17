@@ -4,6 +4,7 @@ import com.calendarfx.model.Calendar;
 import com.calendarfx.model.CalendarSource;
 import com.calendarfx.model.Entry;
 import com.calendarfx.view.CalendarView;
+import fr.ece.javaprojetfinal.BaseController;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
@@ -18,10 +19,13 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-public class CalendarController {
+public class CalendarController extends BaseController {
 
     @FXML
     private AnchorPane calendarContainer;
+
+    @FXML
+    private Label usernameSpot;
 
     private CalendarView calendarView;
     private Calendar planningCalendar;
@@ -31,8 +35,17 @@ public class CalendarController {
 
     private int currentAdminId = 1; // TODO: Récupérer l'ID réel de l'admin connecté
 
+    @Override
+    protected boolean checkPagePermissions() {
+        // si tu veux restreindre le calendrier à l’admin :
+        return getSession().isAdmin();
+        // ou, pour l’ouvrir à tout le monde :
+        // return true;
+    }
+
     @FXML
     public void initialize() {
+        initializeSession();
         // Test de connexion
         testDatabaseConnection();
 

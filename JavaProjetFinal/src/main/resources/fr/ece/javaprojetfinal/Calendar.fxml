@@ -1,59 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import javafx.scene.layout.*?>
+
 <?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.ece.javaprojetfinal.basics.CalendarController">
+<BorderPane xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.ece.javaprojetfinal.basics.CalendarController">
 
     <!-- Header -->
     <top>
-        <HBox spacing="12" alignment="CENTER_LEFT" style="-fx-padding:12; -fx-background-color: #1C399C;">
+        <HBox alignment="CENTER_LEFT" spacing="12" style="-fx-padding:12; -fx-background-color: #1C399C;">
             <children>
-                <Label text="Calendrier" style="-fx-text-fill: #EFE8E8;">
-                    <font><Font size="24"/></font>
+                <Label style="-fx-text-fill: #EFE8E8;" text="Calendrier">
+                    <font><Font size="24" /></font>
                 </Label>
-                <Region HBox.hgrow="ALWAYS"/>
-                <Button text="Déconnexion" style="-fx-background-color: #ffffff22; -fx-text-fill: #EFE8E8; -fx-border-color: rgba(255,255,255,0.2); -fx-border-radius:6; -fx-background-radius:6; -fx-padding:6 12;">
-                    <tooltip>
-                        <Tooltip text="Se déconnecter"/>
-                    </tooltip>
-                </Button>
+                <Region HBox.hgrow="ALWAYS" />
             </children>
         </HBox>
     </top>
 
     <!-- Sidebar -->
     <left>
-        <VBox spacing="18" alignment="TOP_CENTER" style="-fx-padding:18; -fx-background-color: #1C399C; -fx-pref-width:220;">
+        <VBox alignment="TOP_CENTER" spacing="18" style="-fx-padding:18; -fx-background-color: #1C399C; -fx-pref-width:220;">
             <children>
-                <StackPane prefHeight="120" alignment="CENTER">
+                <StackPane alignment="CENTER" prefHeight="120">
                     <children>
                         <Circle radius="40" style="-fx-fill: linear-gradient(#ffffff44, #ffffff11); -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.35),8,0,0,2);" />
-                        <Label fx:id="usernameSpot" text="Utilisateur" style="-fx-text-fill: #EFE8E8; -fx-font-weight: bold;" />
+                        <Label fx:id="usernameSpot" style="-fx-text-fill: #EFE8E8; -fx-font-weight: bold;" text="Utilisateur" />
                     </children>
                 </StackPane>
 
-                <VBox spacing="8" alignment="TOP_CENTER" style="-fx-padding:6;">
-                    <children>
-                        <Button mnemonicParsing="false" text="Projets" prefWidth="180" style="-fx-background-radius:8; -fx-background-color: #254a9b; -fx-text-fill: #EFE8E8; -fx-padding:8 10;">
-                            <font><Font size="14"/></font>
-                        </Button>
-                        <Button mnemonicParsing="false" text="Tâches" prefWidth="180" style="-fx-background-radius:8; -fx-background-color: #254a9b; -fx-text-fill: #EFE8E8; -fx-padding:8 10;">
-                            <font><Font size="14"/></font>
-                        </Button>
-                        <Button mnemonicParsing="false" text="Utilisateurs" prefWidth="180" style="-fx-background-radius:8; -fx-background-color: #254a9b; -fx-text-fill: #EFE8E8; -fx-padding:8 10;">
-                            <font><Font size="14"/></font>
-                        </Button>
-                        <Button mnemonicParsing="false" text="Calendrier" prefWidth="180" style="-fx-background-radius:8; -fx-background-color: #EFE8E822; -fx-text-fill: #EFE8E8; -fx-padding:8 10;">
-                            <font><Font size="14"/></font>
-                        </Button>
-                    </children>
-                </VBox>
-
                 <Region VBox.vgrow="ALWAYS" />
 
-                <Button text="Paramètres" prefWidth="180" style="-fx-background-radius:8; -fx-background-color: #EFE8E822; -fx-text-fill: #EFE8E8; -fx-padding:8 10;" />
+                <Button prefWidth="180" style="-fx-background-radius:8; -fx-background-color: #EFE8E822; -fx-text-fill: #EFE8E8; -fx-padding:8 10;" text="Paramètres" />
             </children>
         </VBox>
     </left>
@@ -63,15 +42,15 @@
         <VBox spacing="14" style="-fx-padding:20; -fx-background-color: #F6F8FF;">
             <children>
                 <HBox alignment="CENTER_LEFT" spacing="10">
-                    <Label text="Mon calendrier" style="-fx-text-fill: #1f15b5;">
-                        <font><Font size="18"/></font>
+                    <Label style="-fx-text-fill: #1f15b5;" text="Mon calendrier">
+                        <font><Font size="18" /></font>
                     </Label>
-                    <Region HBox.hgrow="ALWAYS"/>
+                    <Region HBox.hgrow="ALWAYS" />
                     <TextField promptText="Rechercher un événement..." style="-fx-pref-width:320; -fx-background-radius:8; -fx-border-radius:8; -fx-padding:8;" />
                 </HBox>
 
                 <!-- Container pour CalendarFX -->
-                <AnchorPane fx:id="calendarContainer" style="-fx-background-color: #ffffff; -fx-border-radius:12; -fx-background-radius:12; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15),8,0,0,2);"/>
+                <AnchorPane fx:id="calendarContainer" style="-fx-background-color: #ffffff; -fx-border-radius:12; -fx-background-radius:12; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15),8,0,0,2);" />
             </children>
         </VBox>
     </center>

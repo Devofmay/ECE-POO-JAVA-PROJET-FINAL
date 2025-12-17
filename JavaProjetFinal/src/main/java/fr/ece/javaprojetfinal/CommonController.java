@@ -73,6 +73,7 @@ public class CommonController {
                             stage.setScene(scene);
                             stage.show();
                         } else if (storedRole == 0) {
+                            Session.getInstance().login(userid, username, true);
                             // Normal user: open HomeUsertaches.fxml (correct name & path)
                             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fr/ece/javaprojetfinal/HomeUsertaches.fxml"));
                             Parent root;

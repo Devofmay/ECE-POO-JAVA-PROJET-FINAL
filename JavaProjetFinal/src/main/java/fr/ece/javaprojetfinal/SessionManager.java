@@ -13,10 +13,27 @@ import java.io.IOException;
 public class SessionManager {
 
     // Déconnexion complète avec redirection vers login
+
     public static void logout(ActionEvent event) {
-        Session.getInstance().logout();
-        navigateToLogin(event);
+        // vider la session
+        Session.getInstance().logout(); // ou clear()
+
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    SessionManager.class.getResource("/fr/ece/javaprojetfinal/login.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Scene newScene = new Scene(root);
+            stage.setScene(newScene);
+            stage.setTitle("Login");
+            stage.setMaximized(true);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
+
 
     // Navigation vers login (utilisé lors de la déconnexion ou accès refusé)
     public static void navigateToLogin(ActionEvent event) {

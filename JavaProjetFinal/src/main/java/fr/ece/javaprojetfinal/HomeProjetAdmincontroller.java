@@ -14,6 +14,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -31,6 +32,7 @@ public class HomeProjetAdmincontroller extends BaseController {
     @FXML private Button utilisateursbtn;
     @FXML private Button parametresbtn;
     @FXML private Button calendrierbtn;
+    @FXML private Button creerProjetBtn;
 
     private final ObservableList<Projet> projects = FXCollections.observableArrayList();
 
@@ -54,19 +56,23 @@ public class HomeProjetAdmincontroller extends BaseController {
         actionsCol.setCellFactory(col -> new ActionsCell(this));
         projectsTable.setItems(projects);
 
-        // 📊 Charger les projets de l'admin connecté
+        //  Charger les projets de l'admin connecté
         loadProjectsForAdmin();
 
-        // 👥 Navigation Collaborateurs
+        //  Navigation Collaborateurs
         utilisateursbtn.setOnAction(ev -> navigate("/fr/ece/javaprojetfinal/InsideCollabo.fxml", "Collaborateurs"));
 
-        // 📅 Calendrier (nouvelle fenêtre)
+        //  Calendrier (nouvelle fenêtre)
         calendrierbtn.setOnAction(ev -> openCalendar());
 
-        // ⚙️ Paramètres (basé sur la session)
+        // ⚙ Paramètres (basé sur la session)
         parametresbtn.setOnAction(ev ->
                 SettingsLauncher.openParametresForUser(getCurrentUserId(), (Node) parametresbtn)
         );
+
+        if (creerProjetBtn != null) {
+            creerProjetBtn.setOnAction(ev -> openAjouterProjet());
+        }
     }
 
     // ===================== LOGIQUE MÉTIER =====================
@@ -135,6 +141,30 @@ public class HomeProjetAdmincontroller extends BaseController {
             stage.show();
         } catch (IOException e) {
             showError("Impossible d’ouvrir le calendrier.");
+        }
+    }
+
+    private void openAjouterProjet() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fr/ece/javaprojetfinal/AjouterProjet.fxml"));
+            Parent root = loader.load();
+
+            AjouterProjetcontroller ctrl = loader.getController();
+            ctrl.setParentController(this);
+            ctrl.setPreviousScene(creerProjetBtn.getScene());
+
+            Stage dialog = new Stage();
+            dialog.initOwner(creerProjetBtn.getScene().getWindow());
+            dialog.initModality(Modality.WINDOW_MODAL);
+            dialog.setTitle("Créer un projet");
+            dialog.setScene(new Scene(root));
+            dialog.sizeToScene();
+            dialog.showAndWait();
+
+            // recharger les projets après création
+            loadProjectsForAdmin();
+        } catch (IOException e) {
+            showError("Impossible d’ouvrir la fenêtre de création de projet.");
         }
     }
 
